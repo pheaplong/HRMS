@@ -2,7 +2,6 @@ import React, { useContext, useEffect,useState } from 'react'
 import {Link} from 'react-router-dom'
 import Spinner from '../layout/Spinner'
 //#region FORM_CONTENT
-import StaffAgreementModifiedModal from '../StaffAgreement/StaffAgreementModifiedModal';
 import StaffRelativeModifiedModal from '../staffRelative/StaffRelativeModifiedModal';
 import StaffModifiedModal from './StaffModifiedModal'
 //#endregion
@@ -12,7 +11,9 @@ import StaffModifiedModal from './StaffModifiedModal'
 import StaffAgreementContext from '../../context/staffAgreement/StaffAgreementContext'
 import StaffRelativeContext from '../../context/staffRelative/StaffRelativeContext'
 import StaffContext from '../../context/staff/StaffContext'
+// import StaffContext from '../../context/staffAgreement/'
 //#endregion
+import StaffAgreements from '../StaffAgreement/StaffAgreements';
 import StaffRelatives from '../staffRelative/StaffRelatives'
 const StaffInfo = ({ match }) => {
    
@@ -21,7 +22,7 @@ const StaffInfo = ({ match }) => {
    const tabStyle={
       display:'none'
    }
-  // const {  loadStaffAgeementByID } = useContext(StaffAgreementContext)
+  const {  loadStaffAgreementByID } = useContext(StaffAgreementContext)
    const {  loadStaffRelativeByStaffID } = useContext(StaffRelativeContext)
    // const {
    //    STF_FN,
@@ -35,7 +36,7 @@ const StaffInfo = ({ match }) => {
    const [tabContent, setTabContent] = useState('stf-info')
    useEffect(() => {
       loadStaffByID(match.params.id) 
-      //  loadStaffAgeementByID(match.params.id)
+      loadStaffAgreementByID(match.params.id)
       loadStaffRelativeByStaffID(match.params.id)
     
    }, [])
@@ -49,13 +50,14 @@ const testfunc=(id)=>{
 }
    return (
    <div>
-      <Link className="btn btn-sm" to='/Staff'>Back</Link>
+      <Link className="btn btn-sm btn-primary" to='/Staff'>Back</Link>
    
       <div className="wrapper">
          <div className="sidebar">
-            <button className="tab-links" onClick={()=>testfunc('stf-info')}>Agreement</button>
+            <button className="tab-links" onClick={()=>testfunc('stf-info')}>Infomation</button>
+            <button className="tab-links" onClick={()=>testfunc('stf-ag')}>Agreement</button>
             <button className="tab-links" onClick={()=>testfunc('stf-rel')}>Relative</button>
-            <button className="tab-links" onClick={()=>0}>Employment experience</button>
+            <button className="tab-links" onClick={()=>testfunc('stf-exp')}>Employment History</button>
             <button className="tab-links" onClick={()=>0}>Leave History</button>
             <button className="tab-links" onClick={()=>0}>Leave History</button>
          </div>
@@ -67,17 +69,14 @@ const testfunc=(id)=>{
             <StaffModifiedModal staffID={match.params.id} type='view'/>
             
             </div>
-            <div className="tab-content" id="stf-ag"  style={{height:'40px',backgroundColor:'purple',display:'none'}}>
-               asd
-            {/* <StaffAgreementModifiedModal staffID={match.id}/> */}
+            <div className="tab-content" id="stf-ag"  style={{display:'none'}}>
+            <StaffAgreements staffID={match.params.id}/>
             </div>
-            <div className="tab-content" id="stf-rel"  style={{height:'40px',backgroundColor:'blue',display:'none'}}>
+            <div className="tab-content" id="stf-rel"  style={{display:'none'}}>
             <StaffRelatives staffID={match.params.id}/>
             </div>
          </div>
-         <div className="staff-info">
-   
-         </div>
+        
       </div>
       </div>
    )

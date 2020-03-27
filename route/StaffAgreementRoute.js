@@ -9,7 +9,18 @@ const dp=new DomainProccessor();
 StaffAgreementRoute.get('/',(req,res)=>{
    dp.loadData().then((data)=>{
       res.json(data,null,2)
+      console.log(data);
       
+   })
+})
+StaffAgreementRoute.get('/:id',(req,res)=>{
+  
+   
+   dp.loadDataByID(req.params.id).then((data)=>{
+      res.json(data)
+      console.log('=====stf_ag_if==========');
+      console.log(data);
+      console.log('=====stf_ag_if==========');
    })
 })
 //CREATE

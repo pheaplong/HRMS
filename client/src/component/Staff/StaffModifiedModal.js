@@ -76,7 +76,7 @@ const assignState =()=>{
       <form onSubmit={onSubmite} style={{backgroundColor:'white',height:'100%'}}>
          {loading ? <Spinner /> : <Alert />}
          
-         <p>{staffID}</p>
+         
          <div className='float-right' style={{ width: '150px', height: '150px', backgroundColor: 'red' }}>
          {/* <label id="getFileLabel" for="getFile" className='m-auto text-align-center'>
              <i className="m-auto fas fa-upload" style={{fontSize:'2em'}}></i>

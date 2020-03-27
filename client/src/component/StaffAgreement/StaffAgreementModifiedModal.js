@@ -5,6 +5,8 @@ import StaffContext from '../../context/staff/StaffContext'
 import DepartmentContext from '../../context/department/DepartmentContext'
 import PositionTypeContext from '../../context/position/PositionTypeContext'
 import StaffAgreementContext from '../../context/staffAgreement/StaffAgreementContext'
+import StatusTypeContext from '../../context/statusType/StatusTypeContext'
+import { AGREEMENT_TYPE } from '../../helper/Constant'
 import { json } from 'body-parser'
 import { NavLink } from 'react-router-dom'
 const GlobalLibrary=require('../../helper/GlobalLibrary')
@@ -14,9 +16,10 @@ const StaffAgreementModifiedModal = (props) => {
    const { loadDepartment,departments } = useContext(DepartmentContext)
    const { loadPositionType,PositionTypes } = useContext(PositionTypeContext)
    const { addStaffAgreement,loading } = useContext(StaffAgreementContext)
+   const { loadStatus,allStatus } = useContext(StatusTypeContext)
    const [staffAgreement, setStaffAgreement] = useState({
       AG_ID: "",
-      STF_ID: "",
+      STF_ID: props.staffID,
       AGREE_ID: "",
       POS_ID:'',
       SAL: "",
@@ -39,7 +42,7 @@ const StaffAgreementModifiedModal = (props) => {
       AG_EXPR}=staffAgreement
 
    const [file, setFile] = useState(null)
-
+   const cbAgType = allStatus.filter(s => s.CATEGORY === AGREEMENT_TYPE)
    useEffect(() => {
       loadStaff()
       loadDepartment()
@@ -80,10 +83,12 @@ const StaffAgreementModifiedModal = (props) => {
          {loading && <Spinner /> }
          <Alert/>
          {/* STF_ID */}
-         <div className="form-group row">
+         <div className="form-group row"  >
             <label htmlFor="STF_ID" className="col-sm-2 col-form-label">Employee</label>
             <div className="col-sm-10">
-               <input type="text" id="txtStfID" className="form-control" name="STF_ID" onChange={onChange}
+               <input type="text" id="txtStfID" className="form-control" 
+               disabled={props.staffID ? 'true' : undefined}
+               name="STF_ID" onChange={onChange}
                list="data" value={STF_ID} />
                <datalist id="data">
                   {staffs.map((item, key) =>
@@ -94,7 +99,7 @@ const StaffAgreementModifiedModal = (props) => {
          </div>
          {/* DEPARTMENT */}
          <div className="form-group row">
-            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Status</label>
+            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Department</label>
             <div className="col-sm-10">
                <select name="DEP_ID" className="form-control" onChange={cbDep_OnChange} value={Dep.DEP_ID} >
                <option onChange={cbDep_OnChange} value={0}>---Select---</option>
@@ -108,7 +113,7 @@ const StaffAgreementModifiedModal = (props) => {
          </div>
          {/* POSITION */}
          <div className="form-group row">
-            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Status</label>
+            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Position</label>
             <div className="col-sm-10">
                <select name="POS_ID" className="form-control" onChange={onChange} value={POS_ID} >
                <option onChange={onChange}   value={0}>---Select---</option>
@@ -127,7 +132,7 @@ const StaffAgreementModifiedModal = (props) => {
                   <option  value={0}>---Select---</option>
 
                   {
-                      props.cbAgType.map(s=>(<option value={s.ST_ID}>{s.ST_DESC}</option>))
+                      cbAgType.map(s=>(<option value={s.ST_ID}>{s.ST_DESC}</option>))
                   }
                </select>
             </div>

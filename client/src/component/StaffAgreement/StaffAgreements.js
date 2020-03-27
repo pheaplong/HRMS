@@ -14,7 +14,7 @@ import Alert from '../layout/Alert'
 
 //#endregion
 
-const StaffAgreements = () => {
+const StaffAgreements = (props) => {
    const { loadStaffAgreement,
       addStaffAgreement,
       filterStaffAgreement,
@@ -26,7 +26,7 @@ const StaffAgreements = () => {
    const [STF_FULLNAME, setSTF_FULLNAME] = useState('')
    const [AGREE_ID, setAGREE_ID] = useState(0)
    const cbAgType = allStatus.filter(s => s.CATEGORY === AGREEMENT_TYPE)
-   const staffModifiedModal = <StaffAgreementModifiedModal cbAgType={cbAgType} />
+   const staffModifiedModal = <StaffAgreementModifiedModal staffID={props.staffID} cbAgType={cbAgType} />
    const columns = ['No','ID', 'EMPID', 'Emp Name',
    'Department',
       'Position',
@@ -38,7 +38,7 @@ const StaffAgreements = () => {
    let body = [];
    useEffect(() => {
       loadStatus()
-      loadStaffAgreement()
+      !props.staffID && loadStaffAgreement()
    }, [])
    const onCbChange = e => {
       setAGREE_ID(e.target.value)
@@ -72,11 +72,12 @@ const StaffAgreements = () => {
                   <Alert />
                   <div className='pageSector'>
                      <div className='d-flex align-content-end flex-wrap' style={{ width: '50%', height: '100%', float: "left" }}>
-                        <ul>
+                        {/* <ul>
                            <li><PopUpButton text='Add' className={'btn btn-sm btn-primary'} component={staffModifiedModal} /></li>
 
 
-                        </ul>
+                        </ul> */}
+                        <PopUpButton text='+' className={'btn btn-sm btn-primary floating-btn'} component={staffModifiedModal} />
                      </div>
                      <div className='d-flex align-content-end flex-wrap' style={{ width: '50%', height: '100%', float: 'left' }}>
 

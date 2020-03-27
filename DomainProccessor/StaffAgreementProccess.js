@@ -11,6 +11,15 @@ class StaffAgreementProccess extends Database {
       })      
       return result;
    }
+   async loadDataByID(ID) {
+      const sql='select * from VW_STF_AGREEMENT where stf_id=:0'
+      const result = await this.load(sql,[ID],(d)=>{
+         d.AG_DATE=lib.formatDate(d.AG_DATE)
+         d.AG_EXPR=lib.formatDate(d.AG_EXPR)
+         //lib.formatDate(d.AG_DATE)
+      })      
+      return result;
+   }
 
 
    async insertData(STF_AGREEMENT) { 

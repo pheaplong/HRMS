@@ -40,6 +40,7 @@ const StaffAgreementState = (props) => {
    const loadStaffAgreementByID=async(ID)=>{
       try {
          setLoading();
+         
          const res = await Axios.get('/api/staffagreement/'+ID)
          clearLoading();
          if (!res.data.isSuccessed) {
@@ -119,6 +120,7 @@ const StaffAgreementState = (props) => {
          current:state.current,
          loading:state.loading,
          loadStaffAgreement,
+         loadStaffAgreementByID,
          addStaffAgreement,
          setCurrent,
          filter,
