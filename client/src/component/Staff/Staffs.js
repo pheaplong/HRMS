@@ -74,7 +74,6 @@ const Staffs = () => {
          {/* {
             loading ? :/>
          } */}
-          <Alert/>
          <Table key={1} columns={columns} body={body} />
       </div>
    )

@@ -97,7 +97,7 @@ const StaffRelatives = ({ staffID }) => {
            
 
          }
-         <Alert /> 
+         
          <Table columns={columns} body={body} />
 
 

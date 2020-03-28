@@ -50,7 +50,6 @@ const PositionTypes = (props) => {
                }}
             >Delete</button></li>
          </ul>
-         <Alert/>
          {
             PositionTypes.forEach(pos => {
                body.push(

@@ -29,9 +29,8 @@ const Departments = () => {
             <li><PopUpButton component={departmentModifyModal} text='Add Department'
                className='btn btn-primary' /></li>
          </ul>
-         <Alert />
          {
-            (loading) ? (<Spinner />) : (
+            (loading) && (<Spinner />) }
                <div className="row">
                   {departments.map((department, i) => (
                      <div key={department.id} className="col-md-4 mb-2" >
@@ -39,8 +38,8 @@ const Departments = () => {
                      </div>
                   ))}
                </div>
-            )
-         }
+            
+         
 
       </div>
 

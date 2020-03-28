@@ -29,17 +29,18 @@ const DepartmentState = (props) => {
          clearLoading();
          if (!res.data.isSuccessed) {
             // dispatch({ type: ERROR, payload: res.data.message });
-            setAlert(res.data.message)
+            setAlert('Department','Loading : '+res.data.message)
             return;
          }
          dispatch({ type: LOAD_DEPARTMENT, payload: res.data.result });
-       
-
+         setAlert('Department','Loading : '+'Transaction Succesfully',true)
+         
+         
       } catch (error) {
          // dispatch({ type: ERROR, payload: error.message });
-         setAlert(error.message)
+         setAlert('Department','Loading : '+error.message)
       }
-
+      
    }
    const loadDepartmentByID = async (id) => {
       try {
@@ -47,16 +48,17 @@ const DepartmentState = (props) => {
          const res = await Axios.get('/api/department/' + id)
          if (!res.data.isSuccessed) {
             // dispatch({ type: ERROR, payload: res.data.message });
-            setAlert(res.data.message)
+            setAlert('Department','Loading : '+res.data.message)
             return;
          }
          dispatch({ type: LOAD_DEPARTMENT_BY_ID, payload: res.data.result });
+         setAlert('Department','Loading : '+'Transaction Succesfully',true)
          // if (res.data.isSuccessed) {
          //    dispatch({ type: LOAD_DEPARTMENT_BY_ID, payload: res.data.result });
          // }
       } catch (error) {
          // dispatch({ type: ERROR, payload: error.message });
-         setAlert(error.message)
+         setAlert('Department','Loading : '+error.message)
       }
 
    }
@@ -70,16 +72,16 @@ const DepartmentState = (props) => {
          clearLoading();
          if (!res.data.isSuccessed) {
             //   dispatch({ type: ERROR, payload: res.data.message });
-            setAlert(res.data.message)
+            setAlert('Department','Add : '+res.data.message)
             return;
          }
          temp.DEP_ID=res.data.LAST_INSERT_ID;
          dispatch({ type: ADD_DEPARTMENT, payload: temp });
-         setAlert('Transaction Successfully',true)
+         setAlert('Department','Add : '+'Transaction Successfully',true)
 
       } catch (error) {
          // dispatch({ type: ERROR, payload: error.message });
-         setAlert(error.message)
+         setAlert('Department','Add : '+error.message)
 
       }
       

@@ -27,13 +27,13 @@ const StaffAgreementState = (props) => {
          const res = await Axios.get('/api/staffagreement')
          clearLoading();
          if (!res.data.isSuccessed) {
-            setAlert(res.data.message)
+            setAlert('Staff Agreement','Loading :'+res.data.message)
             return;
          }
          dispatch({ type: LOAD_STAFF_AGREEMENT, payload: res.data.result });
-         setAlert('Transaction Successfully',true)
+         setAlert('Staff Agreement','Loading :'+'Transaction Successfully',true)
       } catch (error) {
-         setAlert(error.message)
+         setAlert('Staff Agreement','Loading :'+error.message)
       }
 
    }
@@ -44,17 +44,17 @@ const StaffAgreementState = (props) => {
          const res = await Axios.get('/api/staffagreement/'+ID)
          clearLoading();
          if (!res.data.isSuccessed) {
-            setAlert(res.data.message)
+            setAlert('Staff Agreement','Loading :'+res.data.message)
             return;
          }
          if(res.data.result.length==0 ){
-            setAlert('There is no matching Employee');
+            setAlert('Staff Agreement','Loading :'+'There is no matching Employee');
             return;
          }
          dispatch({ type: LOAD_STAFF_AGREEMENT, payload: res.data.result });
-         setAlert('Transaction Successfully',true)
+         setAlert('Staff Agreement','Loading :'+'Transaction Successfully',true)
       } catch (error) {
-         setAlert(error.message)
+         setAlert('Staff Agreement','Loading :'+error.message)
       }
 
    }
@@ -66,14 +66,14 @@ const StaffAgreementState = (props) => {
          const res = await Axios.post('/api/StaffAgreement/add',staffAgreement)
          clearLoading();
          if (!res.data.isSuccessed) {
-            setAlert(res.data.message)
+            setAlert('Staff Agreement','Adding :'+res.data.message)
             return;
          }
          staffAgreement.AG_ID=res.data.LAST_INSERT_ID
          dispatch({ type: ADD_STAFF_AGREEMENT, payload: staffAgreement });
-        
+         setAlert('Staff Agreement','Adding :'+'Transaction Successfully',true)
       } catch (error) {
-         setAlert(error.message)
+         setAlert('Staff Agreement','Adding :'+error.message)
       }
 
    }
@@ -83,7 +83,7 @@ const StaffAgreementState = (props) => {
          setLoading()
          dispatch({ type: FILTER_STAFF_AGREEMENT, payload:staffAgreement});
       } catch (error) {
-         setAlert(error.message)
+         setAlert('Staff Agreement',error.message)
       }
 
    }
@@ -93,7 +93,7 @@ const StaffAgreementState = (props) => {
          setLoading()
          dispatch({ type: CLEAR_FILTER_STAFF_AGREEMENT});
       } catch (error) {
-         setAlert(error.message)
+         setAlert('Staff Agreement',error.message)
       }
 
    }
@@ -101,7 +101,7 @@ const StaffAgreementState = (props) => {
       try {
          dispatch({ type: SET_CURRENT,payload:staffAgreement});
       } catch (error) {
-         setAlert(error.message)
+         setAlert('Staff Agreement',error.message)
       }
 
    }

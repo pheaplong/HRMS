@@ -69,9 +69,9 @@ const StaffAgreements = (props) => {
          {
             loading && (<Spinner />) }
                <div>
-                  <Alert />
+                  {/* <Alert /> */}
                   <div className='pageSector'>
-                     <div className='d-flex align-content-end flex-wrap' style={{ width: '50%', height: '100%', float: "left" }}>
+                     <div className='d-flex align-content-end flex-wrap' style={{ width: '50%', height: '100%', float: "left",position:'relative ' }}>
                         {/* <ul>
                            <li><PopUpButton text='Add' className={'btn btn-sm btn-primary'} component={staffModifiedModal} /></li>
 

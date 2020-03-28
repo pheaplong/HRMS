@@ -1,5 +1,5 @@
 //#region REQUIRE
-import React from 'react';
+import React,{useContext} from 'react';
 import './App.css';
 import Navbar from './component/layout/Navbar'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
@@ -32,6 +32,7 @@ import RptStaffAgreement from './component/StaffAgreement/RptStaffAgreement'
 
 //#endregion
 import AlertState from './context/alert/AlertState'
+import Alert from './component/layout/Alert'
 //import StatusTypeState from './context/statusType/StatusTypeState'
 function App() {
    return (
@@ -45,7 +46,7 @@ function App() {
                            <StaffRelativeState>
                               <Router>
                                  <Navbar />
-                                 <div className="container">
+                                 <div className="container mt-2">
                                     <Switch>
                                        <Route exact path="/" render={() => (<Home />)} />
                                        {/* STAFF */}
@@ -62,7 +63,16 @@ function App() {
                                        <Route exact path="/department/:id" component={Department} />
                                        {/* <Route exact path="/department/:id" render={() => (<Department/>)} /> */}
                                     </Switch>
-                                    </div>
+                                    <span id='sProccess' style={{
+                                          fontWeight:'bold',
+                                          color: 'black',
+                                          position: 'fixed',
+                                          bottom: '0',
+                                          zIndex: '2'
+                                       }}>Human Resource Management System</span>
+                                    
+                                    
+                                 </div>
                               </Router>
                            </StaffRelativeState>
                         </StaffState>
@@ -70,8 +80,11 @@ function App() {
                   </StaffAgreementState>
                </PositionTypeState>
             </DepartmentState>
+            <div className="footer">
+               {/* <span>Proccess : none</span> */}
+               <Alert />
+            </div>
          </AlertState>
-         
       </div>
    );
 }

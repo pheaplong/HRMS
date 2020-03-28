@@ -47,13 +47,14 @@ const StaffState = (props) => {
          const res = await Axios.get('/api/staff')
          clearLoading();
          if (!res.data.isSuccessed) {
-            setAlert(res.data.message)
+            setAlert('Staff','Loading : '+res.data.message)
             return;
          }
          dispatch({ type: LOAD_STAFF, payload: res.data.result });
+         setAlert('Staff','Loading : '+'Transaction Succesfully',true)
         
       } catch (error) {
-         setAlert(error.message)
+         setAlert('Staff','Loading : '+error.message)
       }
 
    }
@@ -63,17 +64,18 @@ const StaffState = (props) => {
          const res = await Axios.get('/api/staff/'+ID)
          clearLoading();
          if (!res.data.isSuccessed) {
-            setAlert(res.data.message)
+            setAlert('Staff','Loading : '+res.data.message)
             return;
          }
          if ( res.data.result.length ==0) {
-            setAlert('There is no match employee')
+            setAlert('Staff','Loading : '+'There is no match employee')
             return;
          }
          dispatch({ type: LOAD_STAFF_BY_ID, payload: res.data.result[0] });
+         setAlert('Staff','Loading : '+'Transaction Succesfully')
         
       } catch (error) {
-         setAlert(error.message)
+         setAlert('Staff','Loading : '+error.message)
       }
    }
    //ADD_staff
@@ -85,15 +87,15 @@ const StaffState = (props) => {
          const res = await Axios.post('/api/staff/add', staff)
          clearLoading()
          if (!res.data.isSuccessed) {
-            setAlert(res.data.message)
+            setAlert('Staff','Add : '+res.data.message)
             return;
          }
          staff.STF_ID = res.data.LAST_INSERT_ID;
          dispatch({ type: ADD_STAFF, payload: staff });
-         setAlert('Transaction Successfully',true)
+         setAlert('Staff','Add : '+'Transaction Successfully',true)
          return true;
       } catch (error) { 
-         setAlert(error.message)
+         setAlert('Staff','Add : '+error.message)
          
       }
    }
@@ -105,13 +107,13 @@ const StaffState = (props) => {
          const res = await Axios.put('/api/staff/update', staff)
          clearLoading()
          if (!res.data.isSuccessed) {
-            setAlert(res.data.message)
+            setAlert('Staff','Update : '+res.data.message)
             return;
          }
          dispatch({ type: UPDATE_STAFF, payload: staff });
-         setAlert('Update Successfully',true)
+         setAlert('Staff','Update : '+'Update Successfully',true)
       } catch (error) {
-         setAlert(error.message)
+         setAlert('Staff','Update : '+error.message)
          clearLoading()
       }
    }
@@ -127,13 +129,13 @@ const StaffState = (props) => {
         // window.alert(JSON.stringify(staff))
          clearLoading()
          if (!res.data.isSuccessed) {
-            setAlert(res.data.message)
+            setAlert('Staff','Delete : '+res.data.message)
             return;
          }
          dispatch({ type: DELETE_STAFF, payload: staff });
-         setAlert('Transaction Successfully',true)
+         setAlert('Staff','Delete : '+'Transaction Successfully',true)
       } catch (error) {
-         setAlert(error.message)
+         setAlert('Staff','Delete : '+error.message)
          clearLoading()
       }
       
