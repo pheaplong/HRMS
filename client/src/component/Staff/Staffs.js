@@ -29,7 +29,7 @@ const Staffs = () => {
             loading && <Spinner/>
          }
          <div className='pageSector'>
-            <div className='d-flex align-content-end flex-wrap' style={{ width: '50%', height: '100%', backgroundColor: 'RED', float: "left" }}>
+            <div className='left-side'>
                <ul>
                   <li><PopUpButton text='Add' className={'btn btn-primary'} component={staffModifiedModal} /></li>
                   <li><button className="btn btn-danger"
@@ -57,7 +57,7 @@ const Staffs = () => {
                   </li>
                </ul>
             </div>
-            <div style={{ width: '50%', backgroundColor: 'purple', float: 'left' }}>
+            <div className='right-side'>
                {/* <input type="text" name="" id="" />
                <button className="btn btn-danger">Search</button><br />
                <input type="text" name="" id="" />

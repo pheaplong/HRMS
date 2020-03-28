@@ -22,7 +22,7 @@ class PopUpButton extends React.Component {
     render(){
    const { className, text, component,trigger }=this.props;
       return (
-         <div style={{position:'relative'}}> 
+         <div > 
             {
                !trigger ?( <button className={className} onClick={this.openModal}>{text}</button>) 
                : (<div  onDoubleClick={this.openModal} >{trigger}</div>)

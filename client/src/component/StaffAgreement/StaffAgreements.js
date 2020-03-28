@@ -65,31 +65,34 @@ const StaffAgreements = (props) => {
    }
 
    return (
-      <div >
+      <div className='main-component'>
          {
             loading && (<Spinner />) }
-               <div>
+              
                   {/* <Alert /> */}
+                        <PopUpButton text='+' className={'btn btn-sm btn-primary floating-btn'} component={staffModifiedModal} />
                   <div className='pageSector'>
-                     <div className='d-flex align-content-end flex-wrap' style={{ width: '50%', height: '100%', float: "left",position:'relative ' }}>
+                     <div className='left-side' >
                         {/* <ul>
                            <li><PopUpButton text='Add' className={'btn btn-sm btn-primary'} component={staffModifiedModal} /></li>
 
 
                         </ul> */}
-                        <PopUpButton text='+' className={'btn btn-sm btn-primary floating-btn'} component={staffModifiedModal} />
                      </div>
-                     <div className='d-flex align-content-end flex-wrap' style={{ width: '50%', height: '100%', float: 'left' }}>
+                     <div className='right-side' >
 
-                        <input type="text" name="" id="" onChange={onChange} value={STF_FULLNAME} />
+                        <input type="text" name="" id="" onChange={onChange}
+                        style={{width:'200px',height:'35px'}} value={STF_FULLNAME} />
                         {/* <button className="btn btn-sm btn-success btn-sm">Search</button><br /> */}
-                        <select name="" id="" onChange={onCbChange} value={AGREE_ID}>
+                        <select name="" id="" onChange={onCbChange}
+                        style={{width:'200px',height:'35px'}} value={AGREE_ID}>
                            <option onChange={onCbChange} value={0}>---Select---</option>
                            {
                               cbAgType.map(s => (<option onChange={onCbChange} value={s.ST_ID}>{s.ST_DESC}</option>))
                            }
                         </select>
-                        <button onClick={btnclear_onClick} id="btnClear" className="btn btn-sm btn-info btn-sm"> Clear</button>
+                        <button onClick={btnclear_onClick} id="btnClear" 
+                        style={{width:'200px',height:'35px'}} className="btn btn-sm btn-info btn-sm"> Clear</button>
                      </div>
                   </div>
                   {
@@ -101,7 +104,7 @@ const StaffAgreements = (props) => {
                   }
 
                   <Table key={1} columns={columns} body={body} />
-               </div>
+              
           
       </div>
    )

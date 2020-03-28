@@ -1,5 +1,5 @@
 //#region REQUIRE
-import React,{useContext} from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Navbar from './component/layout/Navbar'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
@@ -35,6 +35,30 @@ import AlertState from './context/alert/AlertState'
 import Alert from './component/layout/Alert'
 //import StatusTypeState from './context/statusType/StatusTypeState'
 function App() {
+   const checkTime = (i) => {
+      if (i < 10) {
+         i = "0" + i;
+      }
+      return i;
+   }
+   const startTime = () => {
+      var today = new Date();
+      var h = today.getHours();
+      var m = today.getMinutes();
+      var s = today.getSeconds();
+      // add a zero in front of numbers<10
+      m = checkTime(m);
+      s = checkTime(s);
+      document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+      let t = setTimeout(function () {
+         startTime()
+      }, 500);
+   }
+   useEffect(() => {
+      startTime()
+      return () => {
+      }
+   }, [])
    return (
       <div className="App">
          <AlertState>
@@ -47,6 +71,13 @@ function App() {
                               <Router>
                                  <Navbar />
                                  <div className="container mt-2">
+                                 <div id="time" style={{  fontWeight: 'bold',
+                                       color: 'black',
+                                       position: 'fixed',
+                                       bottom: '0',
+                                       right:'8%',
+                                       zIndex: '2' }}></div>
+
                                     <Switch>
                                        <Route exact path="/" render={() => (<Home />)} />
                                        {/* STAFF */}
@@ -64,14 +95,14 @@ function App() {
                                        {/* <Route exact path="/department/:id" render={() => (<Department/>)} /> */}
                                     </Switch>
                                     <span id='sProccess' style={{
-                                          fontWeight:'bold',
-                                          color: 'black',
-                                          position: 'fixed',
-                                          bottom: '0',
-                                          zIndex: '2'
-                                       }}>Human Resource Management System</span>
+                                       fontWeight: 'bold',
+                                       color: 'black',
+                                       position: 'fixed',
+                                       bottom: '0',
+                                       zIndex: '2'
+                                    }}>Human Resource Management System</span>
                                     
-                                    
+
                                  </div>
                               </Router>
                            </StaffRelativeState>

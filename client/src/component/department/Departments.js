@@ -23,7 +23,7 @@ const Departments = () => {
    //    return(<Spinner/>)
    return (
 
-      <div>
+      <div className='main-component'>
          <ul style={{ listStyleType: 'none' }}>
             <li><Link to='/department' className=' btn btn-success'>Back</Link></li>
             <li><PopUpButton component={departmentModifyModal} text='Add Department'
