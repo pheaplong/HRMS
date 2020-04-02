@@ -30,7 +30,30 @@ const Staffs = () => {
          }
          <div className='pageSector'>
             <div className='left-side'>
-               <ul>
+               <PopUpButton text='Add' className={'btn btn-primary'} component={staffModifiedModal} />
+            <button className="btn btn-danger"
+                     onClick={() => {
+                        if (!current) {
+                           window.alert('Please Select Employee');
+                           return;
+                        }
+                        var isDelete = window.confirm('Do you really want to delete this Employee?');
+                        if (isDelete) {
+                           deleteStaff(current)
+                        }
+                     }}
+                  >Delete</button>
+                  <Link className="btn btn-info"
+                        onClick={(e) => {
+                           if (!current) {
+                              window.alert('Please Select Employee');
+                              e.preventDefault()
+                           }
+
+                        }}
+                        to={`/Staff/${current &&current.STF_ID }`}>Information</Link>
+                  
+               {/* <ul>
                   <li><PopUpButton text='Add' className={'btn btn-primary'} component={staffModifiedModal} /></li>
                   <li><button className="btn btn-danger"
                      onClick={() => {
@@ -55,7 +78,7 @@ const Staffs = () => {
                         }}
                         to={`/Staff/${current &&current.STF_ID }`}>Information</Link>
                   </li>
-               </ul>
+               </ul> */}
             </div>
             <div className='right-side'>
                {/* <input type="text" name="" id="" />

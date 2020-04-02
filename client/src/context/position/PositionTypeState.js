@@ -31,24 +31,23 @@ const PositionTypeState = (props) => {
       try {
          setLoading();
          const res = await Axios.get('/api/PositionType')
-         clearLoading();
          if (!res.data.isSuccessed) {
             setAlert('Position','Loading : '+res.data.message)
             return;
          }
          dispatch({ type: LOAD_POSITION_TYPE, payload: res.data.result });
          setAlert('Position','Loading : '+'Transaction Succesfully',true)
-        
+         
       } catch (error) {
          setAlert('Position','Loading : '+error.message)
       }
+      clearLoading();
 
    }
    const loadPositionTypeByFilter = async (DEP_ID) => {
          try {
             setLoading();
             const res = await Axios.get('/api/PositionType')
-            clearLoading();
             if (!res.data.isSuccessed) {
                setAlert('Position','Loading : '+res.data.message)
                return;
@@ -56,19 +55,19 @@ const PositionTypeState = (props) => {
             const data=res.data.result.filter(p=>p.DEP_ID==DEP_ID)
             dispatch({ type: FILTER_POSITION_TYPE, payload:data });
             setAlert('Position','Loading : '+'Transaction Succesfully',true)
-           
+            
          } catch (error) {
             setAlert('Position','Loading : '+error.message)
          }
-   
-
-   }
+         clearLoading();
+         
+         
+      }
    //ADD_PositionType
    const addPositionType = async PositionType => {
       try {
          setLoading();
          const res = await Axios.post('/api/PositionType/add', PositionType)
-         clearLoading()
          if (!res.data.isSuccessed) {
             setAlert('Position','Add : '+res.data.message)
             return;
@@ -80,13 +79,13 @@ const PositionTypeState = (props) => {
          setAlert('Position','Add : '+error.message)
          
       }
+      clearLoading()
    }
    //UPDATE
    const updatePositionType = async PositionType => {
       try {
          setLoading();
          const res = await Axios.put('/api/PositionType/update', PositionType)
-         clearLoading()
          if (!res.data.isSuccessed) {
             setAlert('Position','Upate: '+res.data.message)
             return;
@@ -97,6 +96,7 @@ const PositionTypeState = (props) => {
          setAlert('Position','Upate: '+error.message)
          clearLoading()
       }
+      clearLoading()
    }
    //DELETE
    const deletePositionType = async PositionType => {
@@ -108,10 +108,9 @@ const PositionTypeState = (props) => {
          } )
          // const res = await Axios.delete('/api/PositionType/delete',PositionType )
         // window.alert(JSON.stringify(PositionType))
-         clearLoading()
-         if (!res.data.isSuccessed) {
-            setAlert('Position','Delete: '+res.data.message)
-            return;
+        if (!res.data.isSuccessed) {
+           setAlert('Position','Delete: '+res.data.message)
+           return;
          }
          dispatch({ type: DELETE_POSITION_TYPE, payload: PositionType });
          setAlert('Position','Delete: '+'Transaction Successfully',true)
@@ -119,6 +118,7 @@ const PositionTypeState = (props) => {
          setAlert('Position','Delete: '+error.message)
          clearLoading()
       }
+      clearLoading()
    }
    const setLoading=()=>{
       dispatch({type:SET_LOADING});

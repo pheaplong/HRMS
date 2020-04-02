@@ -1,4 +1,4 @@
-import { useReducer, useEffect,useContext } from 'react'
+import { useReducer, useEffect, useContext } from 'react'
 import alertContext from '../alert/alertContext'
 import StaffRelativeContext from './StaffRelativeContext';
 import StaffRelativeReducer from './StaffRelativeReducer';
@@ -6,6 +6,7 @@ import React from 'react'
 import {
    LOAD_STAFF_RELATIVE,
    LOAD_STAFF_RELATIVE_BY_STAFF_ID,
+   FILTER_STAFF_RELATIVE,
    ADD_STAFF_RELATIVE,
    UPDATE_STAFF_RELATIVE,
    DELETE_STAFF_RELATIVE,
@@ -18,17 +19,19 @@ import Axios from 'axios'
 import { json } from 'body-parser';
 
 const StaffRelativeState = (props) => {
+
    const initialState = {
       loading: false,
       staffRelative: {},
       staffRelatives: [],
-      staffRelativesByStfID:[],
-      current:null
+      filterStaffRelative: [],
+      staffRelativesByStfID: [],
+      current: null
    };
    const [state, dispatch] = useReducer(StaffRelativeReducer, initialState);
-   const {setAlert} = useContext(alertContext)
+   const { setAlert } = useContext(alertContext)
    //LOAD_STAFF_RELATIVE
-  
+
 
    const loadStaffRelative = async (id) => {
       try {
@@ -36,98 +39,116 @@ const StaffRelativeState = (props) => {
          const res = await Axios.get('/api/staffrelative/')
          clearLoading();
          if (!res.data.isSuccessed) {
-            setAlert('Staff Relative','Loading : '+res.data.message)
+            setAlert('Staff Relative', 'Loading : ' + res.data.message)
             return;
          }
          dispatch({ type: LOAD_STAFF_RELATIVE, payload: res.data.result });
-         setAlert('Staff Relative','Loading : '+'Trasaction Successfully',true)
-        
+         setAlert('Staff Relative', 'Loading : ' + 'Trasaction Successfully', true)
+
       } catch (error) {
          clearLoading();
-         setAlert('Staff Relative','Loading : '+error.message)
+         setAlert('Staff Relative', 'Loading : ' + error.message)
       }
 
    }
    const loadStaffRelativeByStaffID = async (ID) => {
       try {
          setLoading();
-         const res = await Axios.get('/api/staffrelative/staff/'+ID)
-         clearLoading();
+         const res = await Axios.get('/api/staffrelative/staff/' + ID)
          if (!res.data.isSuccessed) {
-            setAlert('Staff Relative','Loading : '+res.data.message)
+            setAlert('Staff Relative', 'Loading : ' + res.data.message)
+            dispatch({ type: LOAD_STAFF_RELATIVE_BY_STAFF_ID, payload: res.data.result });
             return;
          }
          dispatch({ type: LOAD_STAFF_RELATIVE_BY_STAFF_ID, payload: res.data.result });
-         setAlert('Staff Relative','Loading : '+'Transaction Succesfully',true)
-        
+         setAlert('Staff Relative', 'Loading : ' + 'Transaction Succesfully', true)
+         
       } catch (error) {
          clearLoading();
-         setAlert('Staff Relative','Loading : '+error.message)
+         setAlert('Staff Relative', 'Loading : ' + error.message)
       }
+      clearLoading();
+      
+   }
+   const filter = stfRel => {
+      console.log('stf rel state ');
+      
+      
+      
+      if (!stfRel) {
+         return
+      }
+      try {
+         setLoading()
+         dispatch({ type: FILTER_STAFF_RELATIVE, payload: stfRel })
+      } catch (error) {
+         setAlert('Staff Relative', 'Filter : ' + error.message)
+      }
+      clearLoading()
 
    }
    //ADD_staffRelative
-   const addStaffRelative = async (staffRelative,type) => {
+   const addStaffRelative = async (staffRelative, type) => {
       try {
-         console.log(`from add relative by type ${type} \n`+json(staffRelative))
+         console.log(`from add relative by type ${type} \n` + json(staffRelative))
          setLoading();
          const res = await Axios.post('/api/staffRelative/add', staffRelative)
-         clearLoading()
          if (!res.data.isSuccessed) {
-            setAlert('Staff Relative','Add : '+res.data.message)
+            setAlert('Staff Relative', 'Add : ' + res.data.message)
             return;
          }
          staffRelative.REL_ID = res.data.LAST_INSERT_ID;
          dispatch({ type: type, payload: staffRelative });
-         setAlert('Staff Relative','Add : '+'Transaction Successfully',true)
+         setAlert('Staff Relative', 'Add : ' + 'Transaction Successfully', true)
          return true;
       } catch (error) {
-         setAlert('Staff Relative','Add : '+error.message)
+         setAlert('Staff Relative', 'Add : ' + error.message)
          
       }
+      clearLoading()
    }
    //UPDATE
-   const updateStaffRelative = async (staffRelative,type) => {
+   const updateStaffRelative = async (staffRelative, type) => {
       try {
          setLoading();
-         console.log(`from update relative by type ${type} \n`+json(staffRelative))
+         console.log(`from update relative by type ${type} \n` + json(staffRelative))
          const res = await Axios.put('/api/staffRelative/update', staffRelative)
-         clearLoading()
          if (!res.data.isSuccessed) {
-            setAlert('Staff Relative','Update : '+res.data.message)
+            setAlert('Staff Relative', 'Update : ' + res.data.message)
             return;
          }
          dispatch({ type: type, payload: staffRelative });
-         setAlert('Staff Relative','Update : '+'Transaction Successfully',true)
+         setAlert('Staff Relative', 'Update : ' + 'Transaction Successfully', true)
       } catch (error) {
-         setAlert('Staff Relative','Update : '+error.message)
+         setAlert('Staff Relative', 'Update : ' + error.message)
          clearLoading()
       }
+      clearLoading()
    }
    //DELETE
-   const deleteStaffRelative = async (staffRelative,type) => {
-      
+   const deleteStaffRelative = async (staffRelative, type) => {
+
       try {
          setLoading();
-         const res = await Axios.delete('/api/staffRelative/delete',{
-            data:staffRelative
-         } )
+         const res = await Axios.delete('/api/staffRelative/delete', {
+            data: staffRelative
+         })
          // const res = await Axios.delete('/api/staffRelative/delete',staffRelative )
-        // window.alert(JSON.stringify(staffRelative))
-         clearLoading()
+         // window.alert(JSON.stringify(staffRelative))
          if (!res.data.isSuccessed) {
-            setAlert('Staff Relative','Delete : '+res.data.message)
+            setAlert('Staff Relative', 'Delete : ' + res.data.message)
             return;
          }
          dispatch({ type: type, payload: staffRelative });
-         setAlert('Staff Relative','Delete : '+'Transaction Successfully',true)
+         setAlert('Staff Relative', 'Delete : ' + 'Transaction Successfully', true)
       } catch (error) {
-         setAlert('Staff Relative','Delete : '+error.message)
+         setAlert('Staff Relative', 'Delete : ' + error.message)
          clearLoading()
       }
+      clearLoading()
       
    }
-
+   
    const setLoading = () => {
       dispatch({ type: SET_LOADING });
    }
@@ -143,13 +164,15 @@ const StaffRelativeState = (props) => {
    return (
       <StaffRelativeContext.Provider value={{
          staffRelatives: state.staffRelatives,
-         staffRelativesByStfID:state.staffRelativesByStfID,
+         filterStaffRelative: state.filterStaffRelative,
+         staffRelativesByStfID: state.staffRelativesByStfID,
          staffRelative: state.staffRelative,
-         singleStaffRelative:state.singleStaffRelative,
-         loading:state.loading,
-         current:state.current,
+         singleStaffRelative: state.singleStaffRelative,
+         loading: state.loading,
+         current: state.current,
          loadStaffRelative,
          loadStaffRelativeByStaffID,
+         filter,
          addStaffRelative,
          updateStaffRelative,
          deleteStaffRelative,

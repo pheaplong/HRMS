@@ -1,15 +1,25 @@
-html{
-    background-color: #e9eef3;
-}
 
+
+@media screen and (min-width: 1200px){
+
+    .container {
+        max-width: 100%;
+    }
+    }
+    form{
+        height:100%
+    }
 html,body{
     height: 100%;
     margin: 0em;
     padding: 0px;
+    position:relative;
+    min-width:775px;        /* Suppose you want minimum width of 1000px */
+   width: auto !important;
+   background-color: #fff;  /* Firefox will set width as auto */
 }
-body{
-    background-color: #fff;
-}
+
+
 .root{
     height: 100%;
 }
@@ -18,8 +28,8 @@ body{
 }
 .navbar{
     height: 40px;
-    background-color: #326F8C;
-    /* background-color: #0292B7; */
+    /* background-color: #326F8C; */
+    background-color: #0292B7;
 }
 .footer,.alert{
     display: flex;
@@ -37,7 +47,9 @@ body{
    left: 0;
    bottom: 0;
    
-   background-color:#0CAADC;
+   position: fixed;
+   background-color:#146a86;
+   /* background-color:#244a56; */
    color: white;
    /* text-align: center; */
 }
@@ -68,6 +80,7 @@ body{
     background-color: #eee;
 }
 .pageSector{
+    
     display: flex;
     height: 100px;
     width: 100%;
@@ -75,20 +88,15 @@ body{
     top: 0px;
     /* padding:10px 20px; */
     position: sticky;
-    background-color: #0292B7;
-    /* background-color: #326F8C; */
+    /* background-color: #0292B7; */
+    border:1px solid rgba(0, 0, 255, 0.2);
+    box-shadow: 2px 0px 2px  rgba(50, 111, 140, 0.5), -2px 2px 2px  rgba(50, 111, 140, 0.5);
+    background-color: #326F8C;
+    
     /* top: 40px; */
 }
-.left-side{
-    width: 50%;
-    display: flex;
-    /* flex-direction: column; */
-    /* align-items: center; */
-    justify-content: flex-end;
-    /* grid-template-columns: repeat(auto-fill,1fr); */
-    /* grid-template-rows: 1fr; */
-} 
-.right-side{
+
+.right-side,.left-side{
     width: 50%;
     display: flex;
     /* flex-direction: column; */
@@ -111,7 +119,7 @@ ul {
 }
 
 .selectedRow{
- background-color: #007bff;   
+ background-color: rgb(43, 145, 236);   
 }
 #inActive{
     color: red;
@@ -132,19 +140,45 @@ tr{
 .show,.dropdown-menu {
     display: block;
     position: absolute;
+    background-color: #0292B7;
+
   }
 .wrapper{
     display: grid;
     grid-template-columns: 2fr 10fr; 
-    height: 500px;
-    background-color: #eee;
+    height: 522px;
+    background-color: #fff;
+     border:1px solid rgba(0, 0, 255, 0.2);
+    box-shadow: 2px 0px 5px  rgba(50, 111, 140, 0.5), -2px 2px 5px  rgba(50, 111, 140, 0.5);
 }
 .sidebar{
-    background-color: #ddd;
+    /* background-color: #ddd; */
      display: grid; 
+     position:relative;
+     /* background-image:linear-gradient(to  top, #2568e582, #2452c13d, #1e3e9e1c, #152a7d1f, #09185e1a) */
+    /* 02042020 */
+    
+    /* background-image: linear-gradient(to right bottom, #0292b7, #188baf, #2285a7, #297e9f, #2e7897, #2d7593, #2d718f, #2c6e8b, #276d8a, #226c89, #1b6b87, #146a86); */
+    /* background-image: linear-gradient(to right top, #29d0ff, #2acdfb, #2ccaf7, #2dc8f4, #2ec5f0, #22c1f1, #14bef1, #00baf2, #00b3f7, #00acfb, #00a4fe, #009bff);     */
+    /* background-image: linear-gradient(to right bottom, #29d0ff, #2acdfb, #2ccaf7, #2dc8f4, #2ec5f0, #22c1f1, #14bef1, #00baf2, #00b3f7, #00acfb, #00a4fe, #009bff); */
+    background-image: linear-gradient(to right bottom, #29d0ff, #23c3f1, #1cb6e2, #15a9d4, #0d9cc6, #0794bf, #038db9, #0085b2, #0080b0, #007aaf, #0075ac, #006faa);
+}
+/* .sidebar::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-image:linear-gradient(to  top, #2568e582, #2452c13d, #1e3e9e1c, #152a7d1f, #09185e1a)
+} */
+.sidebar button:hover{
+    background-color:#176087;
 }
 .tab-links{
     align-self: stretch;
+    color: #fff;
+    font-size: 1rem;
     border: 0;
     background: none;
     box-shadow: none;
@@ -156,7 +190,12 @@ tr{
     display: grid;
     align-items: stretch;
 }
+tr{
+    font-size: 13px;
+    height: 20px;
+}
 .tab-content{
+    padding:10px;
     height: 100%;
     overflow-y: auto;
 }
@@ -167,23 +206,30 @@ tr{
 
 .floating-btn{
     position:fixed;
-    font-size: 30px;
+
     align-items: stretch;
 	width:50px;
 	height:50px;
-	bottom:32px;
-	right:40px;
+	bottom:40px;
+	right:25px;
 	/* background-color:#0C9; */
 	color:#FFF;
 	border-radius:50px;
-	text-align:center;
+
 	box-shadow: 2px 2px 3px #999;
 }
+.btn-2{
+    bottom:92px;
+}
 .App > .container{
+    border:1px solid rgba(0, 0, 255, 0.2);
+    box-shadow: 2px 0px 8px  rgba(50, 111, 140, 0.5), -2px 0px 8px  rgba(50, 111, 140, 0.5);
     position: relative;
     min-height: 600px;
     background-color: white;
-    box-shadow: 2px 2px 2px  rgba(50, 111, 140, 0.5), -2px 2px 2px  rgba(50, 111, 140, 0.5)
+    /* min-width:775px; */
+    /* margin-left : auto;
+    margin-right : auto; */
     /* , -12px 0 8px -4px rgba(31, 73, 125, 0.8); */
 
 }

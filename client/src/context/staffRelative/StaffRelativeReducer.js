@@ -1,6 +1,7 @@
 import {Reducer} from 'react'
 import { LOAD_STAFF_RELATIVE,
    LOAD_STAFF_RELATIVE_BY_STAFF_ID,
+   FILTER_STAFF_RELATIVE,
    ADD_STAFF_RELATIVE,
    ADD_STAFF_RELATIVE_BY_STAFF_ID,
    UPDATE_STAFF_RELATIVE,
@@ -18,6 +19,7 @@ const StaffRelativeReducer=(state,action)=>{
          return {
             ...state,
             staffRelatives: action.payload,
+            filterStaffRelative: action.payload,
             loading: false
          }
          break;
@@ -31,12 +33,29 @@ const StaffRelativeReducer=(state,action)=>{
             loading: false
          }
          break;
-      
+      case FILTER_STAFF_RELATIVE:
+         console.log('stf fliter');
+         console.log(JSON.stringify(action.payload,null,2));
+         let tmp=state.staffRelatives
+         tmp = action.payload.searchValue !=='' ?
+            tmp.filter(s=> s.REL_FN.concat(s.REL_LN).includes(action.payload.searchValue) 
+                           || s.STAFF.includes(action.payload.searchValue))
+                        : state.staffRelatives
+           
+            
+         tmp = action.payload.RELATION_ID !=0 ?
+             tmp.filter(s=>s.RELATION_ID==action.payload.RELATION_ID)
+            : tmp   
+      return{
+            ...state,
+            filterStaffRelative:tmp,
+         }
       case ADD_STAFF_RELATIVE:
 
          return {
             ...state,
-            staffRelatives: [action.payload, ...state.staffRelatives]
+            staffRelatives: [action.payload, ...state.staffRelatives],
+            filterStaffRelative: [action.payload, ...state.filterStaffRelative]
          }
          break;
       case ADD_STAFF_RELATIVE_BY_STAFF_ID:
@@ -59,14 +78,17 @@ const StaffRelativeReducer=(state,action)=>{
          return {
             ...state,
             staffRelatives:state.staffRelatives.map(
-               p=>p.REL_ID ===action.payload.REL_ID ? action.payload: p)
+               p=>p.REL_ID ===action.payload.REL_ID ? action.payload: p),
+            filterStaffRelative:state.filterStaffRelative.map(
+            p=>p.REL_ID ===action.payload.REL_ID ? action.payload: p)
          }
          break;
          case DELETE_STAFF_RELATIVE:
             
             return {
                ...state,
-               staffRelatives:state.staffRelatives.filter(s=>s.REL_ID !==action.payload.REL_ID)
+               staffRelatives:state.staffRelatives.filter(s=>s.REL_ID !==action.payload.REL_ID),
+               filterStaffRelative:state.filterStaffRelative.filter(s=>s.REL_ID !==action.payload.REL_ID)
             }
             break;
          case DELETE_STAFF_RELATIVE_BY_STAFF_ID:

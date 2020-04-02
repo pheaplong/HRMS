@@ -25,7 +25,6 @@ const StaffAgreementState = (props) => {
       try {
          setLoading();
          const res = await Axios.get('/api/staffagreement')
-         clearLoading();
          if (!res.data.isSuccessed) {
             setAlert('Staff Agreement','Loading :'+res.data.message)
             return;
@@ -35,6 +34,7 @@ const StaffAgreementState = (props) => {
       } catch (error) {
          setAlert('Staff Agreement','Loading :'+error.message)
       }
+      clearLoading();
 
    }
    const loadStaffAgreementByID=async(ID)=>{
@@ -48,7 +48,8 @@ const StaffAgreementState = (props) => {
             return;
          }
          if(res.data.result.length==0 ){
-            setAlert('Staff Agreement','Loading :'+'There is no matching Employee');
+            setAlert('Staff Agreement','Loading :'+'There is no matching Employee',true);
+            dispatch({ type: LOAD_STAFF_AGREEMENT, payload: res.data.result });
             return;
          }
          dispatch({ type: LOAD_STAFF_AGREEMENT, payload: res.data.result });
@@ -56,6 +57,7 @@ const StaffAgreementState = (props) => {
       } catch (error) {
          setAlert('Staff Agreement','Loading :'+error.message)
       }
+      clearLoading();
 
    }
    const addStaffAgreement=async(staffAgreement)=>{
@@ -64,7 +66,6 @@ const StaffAgreementState = (props) => {
       try {
          setLoading();
          const res = await Axios.post('/api/StaffAgreement/add',staffAgreement)
-         clearLoading();
          if (!res.data.isSuccessed) {
             setAlert('Staff Agreement','Adding :'+res.data.message)
             return;
@@ -75,7 +76,8 @@ const StaffAgreementState = (props) => {
       } catch (error) {
          setAlert('Staff Agreement','Adding :'+error.message)
       }
-
+      clearLoading();
+      
    }
    const filter=async(staffAgreement)=>{
       console.log( 'from state ' +JSON.stringify(staffAgreement));
@@ -85,7 +87,8 @@ const StaffAgreementState = (props) => {
       } catch (error) {
          setAlert('Staff Agreement',error.message)
       }
-
+      clearLoading();
+      
    }
    const clearFilter=async()=>{
       console.log( 'from state clear filter');
@@ -95,6 +98,7 @@ const StaffAgreementState = (props) => {
       } catch (error) {
          setAlert('Staff Agreement',error.message)
       }
+      clearLoading();
 
    }
    const setCurrent=async(staffAgreement)=>{

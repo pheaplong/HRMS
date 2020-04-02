@@ -63,14 +63,14 @@ const StaffAgreements = (props) => {
       setAGREE_ID(0)
       clearFilter()
    }
-
+   const plusIcon=(<i class="fas fa-plus"></i>)
    return (
       <div className='main-component'>
          {
             loading && (<Spinner />) }
               
                   {/* <Alert /> */}
-                        <PopUpButton text='+' className={'btn btn-sm btn-primary floating-btn'} component={staffModifiedModal} />
+                        <PopUpButton text={plusIcon} className={'btn btn-sm btn-primary floating-btn'} component={staffModifiedModal} />
                   <div className='pageSector'>
                      <div className='left-side' >
                         {/* <ul>
@@ -82,17 +82,17 @@ const StaffAgreements = (props) => {
                      <div className='right-side' >
 
                         <input type="text" name="" id="" onChange={onChange}
-                        style={{width:'200px',height:'35px'}} value={STF_FULLNAME} />
+                        style={{width:'200px',height:'25px'}} value={STF_FULLNAME} />
                         {/* <button className="btn btn-sm btn-success btn-sm">Search</button><br /> */}
                         <select name="" id="" onChange={onCbChange}
-                        style={{width:'200px',height:'35px'}} value={AGREE_ID}>
+                        style={{width:'200px',height:'25px'}} value={AGREE_ID}>
                            <option onChange={onCbChange} value={0}>---Select---</option>
                            {
                               cbAgType.map(s => (<option onChange={onCbChange} value={s.ST_ID}>{s.ST_DESC}</option>))
                            }
                         </select>
                         <button onClick={btnclear_onClick} id="btnClear" 
-                        style={{width:'200px',height:'35px'}} className="btn btn-sm btn-info btn-sm"> Clear</button>
+                        style={{width:'200px',height:'25px'}} className="btn btn-sm btn-info btn-sm"> Clear</button>
                      </div>
                   </div>
                   {

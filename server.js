@@ -8,6 +8,7 @@ const PositionHistoryRoute=require('./route/PositionHistoryRoute')
 const PositionTypeRoute=require('./route/PositionTypeRoute')
 const StaffAgreementRoute=require('./route/StaffAgreementRoute')
 const StaffRelativeRoute=require('./route/StaffRelativeRoute')
+const StaffExperienceRoute=require('./route/StaffExperienceRoute')
 const StatusTypeRoute=require('./route/StatusTypeRoute')
 const DomainProccessor=require('./DomainProccessor/PositionTypeProccess')
 const bodyParser=require('body-parser');
@@ -24,6 +25,7 @@ App.use('/api/PositionType',PositionTypeRoute);
 App.use('/api/PositionHistory',PositionHistoryRoute);
 App.use('/api/StaffAgreement',StaffAgreementRoute);
 App.use('/api/StaffRelative',StaffRelativeRoute);
+App.use('/api/StaffExperience',StaffExperienceRoute);
 App.use('/api/StatusType',StatusTypeRoute);
 App.use('/',(req,res)=>{
    res.send('go back')

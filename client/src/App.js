@@ -31,6 +31,13 @@ import StaffAgreements from './component/StaffAgreement/StaffAgreements'
 import RptStaffAgreement from './component/StaffAgreement/RptStaffAgreement'
 
 //#endregion
+//#region STAFF_EXPERIENCE
+import StaffExperienceState from './context/StaffExperience/StaffExperienceState'
+import StaffExperiences from './component/StaffExperience/StaffExperiences'
+// import RptStaffAgreement from './component/StaffAgreement/RptStaffAgreement'
+
+//#endregion
+
 import AlertState from './context/alert/AlertState'
 import Alert from './component/layout/Alert'
 //import StatusTypeState from './context/statusType/StatusTypeState'
@@ -68,43 +75,49 @@ function App() {
                      <StatusTypeState>
                         <StaffState>
                            <StaffRelativeState>
-                              <Router>
-                                 <Navbar />
-                                 <div className="container mt-2">
-                                 <div id="time" style={{  fontWeight: 'bold',
-                                       color: 'black',
-                                       position: 'fixed',
-                                       bottom: '0',
-                                       right:'8%',
-                                       zIndex: '2' }}></div>
+                              <StaffExperienceState>
 
-                                    <Switch>
-                                       <Route exact path="/" render={() => (<Home />)} />
-                                       {/* STAFF */}
-                                       <Route exact path="/Staff" component={Staffs} />
-                                       <Route exact path="/Staff/:id" component={StaffInfo} />
-                                       <Route exact path="/StaffRelatives" component={StaffRelatives} />
+                                 <Router>
+                                    <Navbar />
+                                    <div className="container pt-2">
+                                       <div id="time" style={{
+                                          fontSize: '1em',
+                                          color: 'white',
+                                          position: 'fixed',
+                                          bottom: '3px',
+                                          right: '1%',
+                                          zIndex: '2'
+                                       }}></div>
 
-                                       {/* STAFF_AGREEMENT */}
-                                       <Route exact path="/StaffAgreement" component={StaffAgreements} />
-                                       <Route exact path="/StaffAgreement/report" component={RptStaffAgreement} />
+                                       <Switch>
+                                          <Route exact path="/" render={() => (<Home />)} />
+                                          {/* STAFF */}
+                                          <Route exact path="/Staff" component={Staffs} />
+                                          <Route exact path="/Staff/:id" component={StaffInfo} />
+                                          <Route exact path="/StaffRelative" component={StaffRelatives} />
+                                          <Route exact path="/Staffexperience" component={StaffExperiences} />
 
-                                       {/* DEPARTMENT */}
-                                       <Route exact path="/department" component={Departments} />
-                                       <Route exact path="/department/:id" component={Department} />
-                                       {/* <Route exact path="/department/:id" render={() => (<Department/>)} /> */}
-                                    </Switch>
-                                    <span id='sProccess' style={{
-                                       fontWeight: 'bold',
-                                       color: 'black',
-                                       position: 'fixed',
-                                       bottom: '0',
-                                       zIndex: '2'
-                                    }}>Human Resource Management System</span>
-                                    
+                                          {/* STAFF_AGREEMENT */}
+                                          <Route exact path="/StaffAgreement" component={StaffAgreements} />
+                                          <Route exact path="/StaffAgreement/report" component={RptStaffAgreement} />
 
-                                 </div>
-                              </Router>
+                                          {/* DEPARTMENT */}
+                                          <Route exact path="/department" component={Departments} />
+                                          <Route exact path="/department/:id" component={Department} />
+                                          {/* <Route exact path="/department/:id" render={() => (<Department/>)} /> */}
+                                       </Switch>
+                                       <span id='sProccess' style={{
+                                          fontSize: 'rem',
+                                          color: 'white',
+                                          position: 'fixed',
+                                          bottom: '3px',
+                                          zIndex: '2'
+                                       }}>Human Resource Management System</span>
+
+
+                                    </div>
+                                 </Router>
+                              </StaffExperienceState>
                            </StaffRelativeState>
                         </StaffState>
                      </StatusTypeState>

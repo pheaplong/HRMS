@@ -45,38 +45,38 @@ const StaffState = (props) => {
       try {
          setLoading();
          const res = await Axios.get('/api/staff')
-         clearLoading();
          if (!res.data.isSuccessed) {
             setAlert('Staff','Loading : '+res.data.message)
             return;
          }
          dispatch({ type: LOAD_STAFF, payload: res.data.result });
          setAlert('Staff','Loading : '+'Transaction Succesfully',true)
-        
+         
       } catch (error) {
          setAlert('Staff','Loading : '+error.message)
       }
+      clearLoading();
 
    }
    const loadStaffByID = async (ID) => {
       try {
          setLoading();
          const res = await Axios.get('/api/staff/'+ID)
-         clearLoading();
          if (!res.data.isSuccessed) {
             setAlert('Staff','Loading : '+res.data.message)
             return;
          }
          if ( res.data.result.length ==0) {
-            setAlert('Staff','Loading : '+'There is no match employee')
+            setAlert('Staff','Loading : '+'There is no match employee',true)
             return;
          }
          dispatch({ type: LOAD_STAFF_BY_ID, payload: res.data.result[0] });
          setAlert('Staff','Loading : '+'Transaction Succesfully')
-        
+         
       } catch (error) {
          setAlert('Staff','Loading : '+error.message)
       }
+      clearLoading();
    }
    //ADD_staff
    const addStaff = async staff => {
@@ -85,7 +85,6 @@ const StaffState = (props) => {
          
          setLoading();
          const res = await Axios.post('/api/staff/add', staff)
-         clearLoading()
          if (!res.data.isSuccessed) {
             setAlert('Staff','Add : '+res.data.message)
             return;
@@ -98,6 +97,7 @@ const StaffState = (props) => {
          setAlert('Staff','Add : '+error.message)
          
       }
+      clearLoading()
    }
    //UPDATE
    const updateStaff = async staff => {
@@ -105,7 +105,6 @@ const StaffState = (props) => {
          setLoading();
          console.log('from state   ' +staff);
          const res = await Axios.put('/api/staff/update', staff)
-         clearLoading()
          if (!res.data.isSuccessed) {
             setAlert('Staff','Update : '+res.data.message)
             return;
@@ -116,6 +115,7 @@ const StaffState = (props) => {
          setAlert('Staff','Update : '+error.message)
          clearLoading()
       }
+      clearLoading()
    }
    //DELETE
    const deleteStaff = async staff => {
@@ -127,10 +127,9 @@ const StaffState = (props) => {
          } )
          // const res = await Axios.delete('/api/staff/delete',staff )
         // window.alert(JSON.stringify(staff))
-         clearLoading()
-         if (!res.data.isSuccessed) {
-            setAlert('Staff','Delete : '+res.data.message)
-            return;
+        if (!res.data.isSuccessed) {
+           setAlert('Staff','Delete : '+res.data.message)
+           return;
          }
          dispatch({ type: DELETE_STAFF, payload: staff });
          setAlert('Staff','Delete : '+'Transaction Successfully',true)
@@ -138,6 +137,7 @@ const StaffState = (props) => {
          setAlert('Staff','Delete : '+error.message)
          clearLoading()
       }
+      clearLoading()
       
    }
 

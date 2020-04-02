@@ -8,11 +8,11 @@ const Table = (props) => {
    return (
      
       <div>
-         <table className="table table-hover">
+         <table className="mt-2 table table-hover">
             <thead>
                <tr>
                  {
-                    columns.map((col,i)=>(<th key={i} scope="col">{col}</th>))
+                    columns.map((col,i)=>(<th scope="col">{col}</th>))
                  }
                </tr>
             </thead>
