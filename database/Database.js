@@ -84,6 +84,44 @@ class Database {
          LAST_INSERT_ID: LAST_INSERT_ID
       }
    }
+   //INSERT_MANY
+     async insertMany(sql,paramList=[]) {
+        let con = null;
+        let result = [];
+        let isSuccessed;
+        let message;
+        try {
+          con = await this.connect();
+          for (let i = 0; i < paramList.length; i++) {
+           
+            try {
+              
+              const temp = await con.execute(sql, paramList[i],{autoCommit:true});
+              console.log(temp);
+            } catch (error) {
+              throw error;
+            }
+            
+          }
+           isSuccessed = true;
+        } catch (error) {
+          con.rollback();
+           isSuccessed = false;
+           message = error.message;
+  
+        } finally {
+           if (con != null) {
+              con.close();
+              con = null;
+           }
+        }
+        return {
+           isSuccessed: isSuccessed,
+           message: message,
+           result: result
+        }
+     }
+   
    //UPDATE OR DELETE
    async execute(sql, params = {}) {
       let con = null;

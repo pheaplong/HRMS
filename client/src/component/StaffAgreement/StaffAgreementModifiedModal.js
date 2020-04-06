@@ -148,7 +148,7 @@ const StaffAgreementModifiedModal = (props) => {
          <div className="form-group row">
             <label htmlFor="AG_DATE" className="col-sm-2 col-form-label">From Date</label>
             <div className="col-sm-10">
-            <input type="date" name="AG_DATE" className="form-control" onChange={onChange} value={AG_DATE}/>
+            <input type="date" data-date="" data-date-format="DD MMMM YYYY" name="AG_DATE" className="form-control" onChange={onChange} value={AG_DATE}/>
             </div>
          </div>
             {/* SAL */}
