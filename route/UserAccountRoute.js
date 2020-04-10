@@ -5,11 +5,10 @@ const bcrypt = require('bcryptjs')
 const config = require('config')
 const DomainProccessor = require('../DomainProccessor/UserAccountProccess');
 const authenthicateUser = require('../middleware/SECURITY').authenthicateUser
-
+const dp = new DomainProccessor()
 UserAccountRoute.post('/register', async (req, res) => {
 
-   const USER_ID = req.body.USER_ID;
-   let PASSWORD = req.body.PASSWORD.toString();
+   const USER_ID = req.body.USER_ID; let PASSWORD = req.body.PASSWORD.toString();
 
    try {
       //Hash Password
@@ -29,8 +28,10 @@ UserAccountRoute.post('/register', async (req, res) => {
       }
       //add to DB
       dp.Register(temp).then(data => {
+         if (!data.isSuccessed)
+            res.json(data)
          const payload = {
-            user:{
+            user: {
                USER_ID
             }
          }
@@ -38,7 +39,8 @@ UserAccountRoute.post('/register', async (req, res) => {
             expiresIn: 3600 * 3
          }, (err, token) => {
             if (err) throw err
-            res.json({ token, data })
+            data.token = token
+            res.json(data)
          })
       })
    })
@@ -56,18 +58,23 @@ UserAccountRoute.post('/login', (req, res) => {
          return res.json({ isSuccessed: false, message: 'This User_ID is Invalid' })
       }
       const compare = await bcrypt.compare(PASSWORD, user.result[0].PASSWORD);
+      const payload = {
+         user: {
+            USER_ID
+         }
+      }
+      if (!compare) return res.json({ message: 'Incorrect Password' })
       jwt.sign(payload, config.get('jwtSecret'), {
-            expiresIn: 3600 * 3
-         }, (err, token) => {
-            if (err) throw err
-            res.json({ token, data })
-         })
-      res.send(compare ? 'succss' : 'false')
+         expiresIn: 3600 * 3
+      }, (err, token) => {
+         if (err) throw err
+         res.json({ isSuccessed: true })
+      })
    })
 
 })
 
-UserAccountRoute.post('/changePassword', [authenthicateUser],(req, res) => {
+UserAccountRoute.post('/changePassword', [authenthicateUser], (req, res) => {
 
    res.send('u cant come here')
 })

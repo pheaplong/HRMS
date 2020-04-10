@@ -1,10 +1,6 @@
-const bcrypt=require('bcryptjs');
-const password='asd';
-try {
-   password=await bcrypt.hash(password,10);
-   console.log(password);
-   
-} catch (error) {
-  console.log(error);
-   
-}
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+
+ReactDOM.render(<App />, document.getElementById('root'));
