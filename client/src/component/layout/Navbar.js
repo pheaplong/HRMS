@@ -39,8 +39,11 @@ const Navbar = () => {
                <li className="nav-item active">
                   <Link className="nav-link" to="/Staffs">Attendant </Link>
                </li>
-               <li className="nav-item active">
+                <li className="nav-item active">
                   <Link className="nav-link" to="/StaffAgreement">Agreement </Link>
+               </li>
+               <li className="nav-item active">
+                  <Link className="nav-link" to="/Permison">Permison</Link>
                </li>
                <li className="nav-item active">
                   <Link className="nav-link" to="/Staffs">Salary </Link>

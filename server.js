@@ -10,24 +10,30 @@ const StaffAgreementRoute=require('./route/StaffAgreementRoute')
 const StaffRelativeRoute=require('./route/StaffRelativeRoute')
 const StaffExperienceRoute=require('./route/StaffExperienceRoute')
 const StatusTypeRoute=require('./route/StatusTypeRoute')
-const DomainProccessor=require('./DomainProccessor/PositionTypeProccess')
+const UserAccountRoute=require('./route/UserAccountRoute')
 const bodyParser=require('body-parser');
+const passport=require('passport');
+const authenthicateUser = require('./middleware/SECURITY').authenthicateUser
+// const InitializePassport=require('./middleware/InitializePassport.js');
+// InitializePassport(passport,)
+
 const cors=require('cors');
 const App=express();
 App.use(bodyParser.json());
 App.use(cors());
 
 App.use('/api/staff',StaffRoute);
-App.use('/api/Department',DepartmentRoute);
-App.use('/api/LeaveHistory',LeaveHistoryRoute);
-App.use('/api/LeaveType',LeaveTypeRoute);
-App.use('/api/PositionType',PositionTypeRoute);
-App.use('/api/PositionHistory',PositionHistoryRoute);
-App.use('/api/StaffAgreement',StaffAgreementRoute);
-App.use('/api/StaffRelative',StaffRelativeRoute);
-App.use('/api/StaffExperience',StaffExperienceRoute);
-App.use('/api/StatusType',StatusTypeRoute);
-App.use('/',(req,res)=>{
+App.use('/api/Department',[authenthicateUser],DepartmentRoute);
+App.use('/api/LeaveHistory',[authenthicateUser],LeaveHistoryRoute);
+App.use('/api/LeaveType',[authenthicateUser],LeaveTypeRoute);
+App.use('/api/PositionType',[authenthicateUser],PositionTypeRoute);
+App.use('/api/PositionHistory',[authenthicateUser],PositionHistoryRoute);
+App.use('/api/StaffAgreement',[authenthicateUser],StaffAgreementRoute);
+App.use('/api/UserAccount',UserAccountRoute);
+App.use('/api/StaffRelative',[authenthicateUser],StaffRelativeRoute);
+App.use('/api/StaffExperience',[authenthicateUser],StaffExperienceRoute);
+App.use('/api/StatusType',[authenthicateUser],StatusTypeRoute);
+App.get('/',(req,res)=>{
    res.send('go back')
 });
 
