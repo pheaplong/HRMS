@@ -23,6 +23,7 @@ App.use(bodyParser.json());
 App.use(cors());
 
 App.use('/api/UserAccount', UserAccountRoute);
+// App.use('/api/staff', StaffRoute);
 App.use('/api/staff', [authenthicateUser], StaffRoute);
 App.use('/api/Department', [authenthicateUser], DepartmentRoute);
 App.use('/api/LeaveHistory', [authenthicateUser], LeaveHistoryRoute);

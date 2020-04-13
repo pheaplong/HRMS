@@ -1,30 +1,38 @@
 import {
    REGISTER_SUCCESS,
-   REGISTER_FAIL,
-   USER_LOADED,
-   AUTH_ERROR,
+   CLEAR_REGISTER,
    LOGIN_SUCCESS,
-   LOGIN_FAIL,
    LOGOUT,
-   CLEAR_ERRORS
+   SET_LOADING,
+   CLEAR_LOADING
 } from '../type';
-
+import GlobalLibrary from '../../helper/GlobalLibrary'
 export default (state, action) => {
+   const globalLibrary = new GlobalLibrary()
    switch (action.type) {
       case REGISTER_SUCCESS:
-         localStorage.setItem('token', action.payload)
          return {
             ...state,
             token: action.payload,
-            isAuthenticated: true,
-            loading: false
+            loading: false,
+            isRegisterSuccess: true
          }
+         break;
+      case CLEAR_REGISTER:
+         return {
+            ...state,
+            isRegisterSuccess: false
+         }
+         break;
       case LOGIN_SUCCESS:
-         localStorage.setItem('token', action.payload);
+         localStorage.setItem('token', action.payload.token);
+         globalLibrary.setAuthToken(action.payload.token)
          return {
             ...state,
             token: action.payload,
             isAuthenticated: true,
+            USER_ID: action.payload.USER_ID,
+            FULL_NAME: action.payload.FULL_NAME,
             loading: false
          };
       case LOGOUT:
@@ -33,9 +41,27 @@ export default (state, action) => {
             ...state,
             token: null,
             isAuthenticated: false,
+            USER_ID: '',
+            FULL_NAME: '',
             loading: false,
          };
+         break;
+      case SET_LOADING:
+         return {
+            ...state,
+            loading: true
+         }
+         break;
+      case CLEAR_LOADING:
+         return {
+            ...state,
+            loading: false
+         }
+         break;
       default:
-         return state;
+         return {
+            ...state
+         }
+         break;
    }
 };

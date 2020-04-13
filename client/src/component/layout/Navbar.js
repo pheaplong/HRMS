@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useContext } from 'react'
+import { Link, Redirect } from 'react-router-dom'
+import UserAccountContext from '../../context/UserAccount/UserAccountContext'
 
 
 const Navbar = () => {
-
+   const { isAuthenticated, logout, FULL_NAME } = useContext(UserAccountContext)
+   const btn_logout_onClick = () => {
+      logout()
+   }
+   // if (isAuthenticated)
+   //    return <Redirect to='/' />
    return (
       <nav className="navbar navbar-expand navbar-dark   sticky-top">
          <div className="container">
@@ -25,7 +31,7 @@ const Navbar = () => {
                      Employee
                 </button>
                   <div className='dropdown-menu' aria-labelledby="dropdownMenuButton">
-                     
+
                      <Link className="dropdown-item" to="/Staff"> All Employee </Link>
                      <Link className="dropdown-item" to="/StaffRelative"> Employee Relative </Link>
                      <Link className="dropdown-item" to="/StaffExperience"> Employment Experience </Link>
@@ -39,22 +45,36 @@ const Navbar = () => {
                <li className="nav-item active">
                   <Link className="nav-link" to="/Staffs">Attendant </Link>
                </li>
-                <li className="nav-item active">
-                  <Link className="nav-link" to="/StaffAgreement">Agreement </Link>
+               <li className="nav-item active">
+                  <Link className="nav-link" to="/StaffAgreement">Agreement</Link>
                </li>
                <li className="nav-item active">
-                  <Link className="nav-link" to="/Permison">Permison</Link>
+                  <Link className="nav-link" to="/Permison">Permisson</Link>
                </li>
                <li className="nav-item active">
-                  <Link className="nav-link" to="/Staffs">Salary </Link>
+                  <Link className="nav-link" to="/Staffs">Salary</Link>
                </li>
                <li className="nav-item active">
                   <Link className="nav-link" to="/department">Department </Link>
                </li>
+               <li className="nav-item active">
+                  <Link className="nav-link" to="/dashboard">DashBoard</Link>
+               </li>
 
             </ul>
-            
-            
+            {
+               isAuthenticated ? (<button id='btn_logout' className='btn btn-primary' onClick={btn_logout_onClick}>{FULL_NAME}</button>)
+                  : (
+                     <ul className='navbar-nav nav'>
+                        <li className="nav-item active">
+                           <Link className="nav-link" to="/UserAccount/Register">Register</Link>
+                        </li>
+                        <li className="nav-item active">
+                           <Link className="nav-link" to="/UserAccount/LogIn">Log In </Link>
+                        </li>
+                     </ul>
+                  )
+            }
          </div>
 
       </nav>

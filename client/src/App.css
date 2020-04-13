@@ -26,6 +26,18 @@ html,body{
 .App {
     height: 100%;
 }
+.App > .container{
+    border:1px solid rgba(0, 0, 255, 0.2);
+    box-shadow: 2px 0px 8px  rgba(50, 111, 140, 0.5), -2px 0px 8px  rgba(50, 111, 140, 0.5);
+    position: relative;
+    min-height: 600px;
+    background-color :#fcfcfc;
+    /* min-width:775px; */
+    /* margin-left : auto;
+    margin-right : auto; */
+    /* , -12px 0 8px -4px rgba(31, 73, 125, 0.8); */
+
+}
 .navbar{
     height: 40px;
     /* background-color: #326F8C; */
@@ -120,6 +132,7 @@ ul {
 
 .selectedRow{
  background-color: rgb(43, 145, 236);   
+ color: #fff;
 }
 #inActive{
     color: red;
@@ -221,15 +234,18 @@ tr{
 .btn-2{
     bottom:92px;
 }
-.App > .container{
+
+
+.register-form{
+    width: 500px;
+    height: 300px;
+    padding: 2rem 2rem;
+    margin: auto;
+    position: absolute;
+    top: 0;
+left: 0;
+bottom: 40px;
+right: 0;
     border:1px solid rgba(0, 0, 255, 0.2);
     box-shadow: 2px 0px 8px  rgba(50, 111, 140, 0.5), -2px 0px 8px  rgba(50, 111, 140, 0.5);
-    position: relative;
-    min-height: 600px;
-    background-color: white;
-    /* min-width:775px; */
-    /* margin-left : auto;
-    margin-right : auto; */
-    /* , -12px 0 8px -4px rgba(31, 73, 125, 0.8); */
-
 }

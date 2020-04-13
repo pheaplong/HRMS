@@ -61,7 +61,7 @@ class Database {
          con = await this.connect();
          // if(!con)
          //    return;
-         
+
          const temp = await con.execute(sql, params, {
             autoCommit: true
          });
@@ -99,7 +99,6 @@ class Database {
          for (let i = 0; i < paramList.length; i++) {
 
             try {
-
                const temp = await con.execute(sql, paramList[i], { autoCommit: true });
                console.log(temp);
             } catch (error) {

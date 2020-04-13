@@ -6,17 +6,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
    const { isAuthenticated, loading } = useContext(UserAccountContext);
    const { setAlert } = useContext(alertContext)
    useEffect(() => {
-      !isAuthenticated && setAlert('Authentication', 'You have no Authorization to access this!')
+      !isAuthenticated && setAlert('Authorization', 'You have no Authorization to access this!')
    })
    return (
       <Route
          {...rest}
          render={props =>
-            !isAuthenticated && !loading ? (
-               <Redirect to='/' />
-            ) : (
-                  <Component {...props} />
-               )
+            !isAuthenticated ? (<Redirect to='/' />) : (<Component {...props} />)
          }
       />
    );

@@ -7,6 +7,8 @@ import Home from './component/home/Home'
 import StatusTypeState from './context/statusType/StatusTypeState'
 import UserAccountState from './context/UserAccount/UserAccountState'
 import PrivateRoute from './PrivateRoute'
+import Login from './component/UserAccount/Login'
+import Register from './component/UserAccount/Register'
 //#endregion
 
 //#region  STAFF 
@@ -42,6 +44,7 @@ import StaffExperiences from './component/StaffExperience/StaffExperiences'
 
 import AlertState from './context/alert/AlertState'
 import Alert from './component/layout/Alert'
+import Dashboard from './component/Dashboard'
 //import StatusTypeState from './context/statusType/StatusTypeState'
 function App() {
    const checkTime = (i) => {
@@ -65,6 +68,7 @@ function App() {
    }
    useEffect(() => {
       startTime()
+
       return () => {
       }
    }, [])
@@ -94,9 +98,11 @@ function App() {
                                           }}></div>
 
                                           <Switch>
-                                             <Route exact path="/" render={() => (<Home />)} />
+
+                                             <Route exact path="/UserAccount/:type" component={Register} />
+                                             <PrivateRoute exact path="/Dashboard" component={Dashboard} />
                                              {/* STAFF */}
-                                             <PrivateRoute exact path="/Staff" component={Staffs} />
+                                             <Route exact path="/Staff" component={Staffs} />
                                              <PrivateRoute exact path="/Staff/:id" component={StaffInfo} />
                                              <PrivateRoute exact path="/StaffRelative" component={StaffRelatives} />
                                              <PrivateRoute exact path="/Staffexperience" component={StaffExperiences} />
@@ -109,6 +115,7 @@ function App() {
                                              <PrivateRoute exact path="/department" component={Departments} />
                                              <PrivateRoute exact path="/department/:id" component={Department} />
                                              {/* <Route exact path="/department/:id" render={() => (<Department/>)} /> */}
+                                             {/* <Route path="/" render={() => (<Register />)} /> */}
                                           </Switch>
                                           <span id='sProccess' style={{
                                              fontSize: 'rem',
