@@ -32,13 +32,13 @@ const StaffExperienceState = (props) => {
       setLoading();
       const res = await Axios.get('/api/StaffExperience')
       if (!res.data.isSuccessed) {
-        setAlert('Staff Experience', 'Loading :' + res.data.message)
-        clearLoading(); return;
+throw res.data;
       }
       dispatch({ type: LOAD_STAFF_EXPERIENCE, payload: res.data.result });
       setAlert('Staff Experience', 'Loading :' + 'Transaction Successfully', true)
     } catch (error) {
       setAlert('Staff Experience', 'Loading :' + error.message)
+      return;
     }
     clearLoading();
 
@@ -50,8 +50,7 @@ const StaffExperienceState = (props) => {
       const res = await Axios.get('/api/StaffExperience/' + ID)
       clearLoading();
       if (!res.data.isSuccessed) {
-        setAlert('Staff Experience', 'Loading :' + res.data.message)
-        clearLoading(); return;
+throw res.data;
       }
       if (res.data.result.length == 0) {
         setAlert('Staff Experience', 'Loading :' + 'There is no matching Employment history with this employee', true);
@@ -62,6 +61,7 @@ const StaffExperienceState = (props) => {
       setAlert('Staff Experience', 'Loading :' + 'Transaction Successfully', true)
     } catch (error) {
       setAlert('Staff Experience', 'Loading :' + error.message)
+      return;
     }
     clearLoading();
 
@@ -73,7 +73,7 @@ const StaffExperienceState = (props) => {
       setLoading();
       const res = await Axios.post('/api/StaffExperience/add', StaffExperience)
       if (!res.data.isSuccessed) {
-        setAlert('Staff Experience', 'Adding :' + res.data.message)
+        setAlert('Staff Experience', 'Adding :' + res.data)
         clearLoading(); return;
       }
       StaffExperience.STF_EXP_ID = res.data.LAST_INSERT_ID
@@ -93,14 +93,13 @@ const StaffExperienceState = (props) => {
       // console.log(`from update relative by type ${type} \n` + json(staffRelative))
       const res = await Axios.put('/api/staffexperience/update', staffRelative)
       if (!res.data.isSuccessed) {
-        setAlert('Staff Experience', 'Update : ' + res.data.message)
-        clearLoading(); return;
+throw res.data;
       }
       dispatch({ type: UPDATE_STAFF_EXPERIENCE, payload: staffRelative });
       setAlert('Staff Experience', 'Update : ' + 'Transaction Successfully', true)
     } catch (error) {
       setAlert('Staff Experience', 'Update : ' + error.message)
-      clearLoading()
+      return;
     }
     clearLoading()
   }
@@ -115,7 +114,7 @@ const StaffExperienceState = (props) => {
       // const res = await Axios.delete('/api/staffRelative/delete',staffRelative )
       // window.alert(JSON.stringify(staffRelative))
       if (!res.data.isSuccessed) {
-        setAlert('Staff Experience', 'Delete : ' + res.data.message)
+        setAlert('Staff Experience', 'Delete : ' + res.data)
         clearLoading(); return;
       }
       dispatch({ type: DELETE_STAFF_EXPERIENCE, payload: staffRelative });

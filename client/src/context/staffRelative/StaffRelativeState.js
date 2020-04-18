@@ -37,35 +37,30 @@ const StaffRelativeState = (props) => {
     try {
       setLoading();
       const res = await Axios.get('/api/staffrelative/')
-      clearLoading();
       if (!res.data.isSuccessed) {
-        setAlert('Staff Relative', 'Loading : ' + res.data.message)
-        clearLoading(); return;
+        throw res.data;
       }
       dispatch({ type: LOAD_STAFF_RELATIVE, payload: res.data.result });
       setAlert('Staff Relative', 'Loading : ' + 'Trasaction Successfully', true)
 
     } catch (error) {
-      clearLoading();
       setAlert('Staff Relative', 'Loading : ' + error.message)
+      return;
     }
+      clearLoading();
 
   }
   const loadStaffRelativeByStaffID = async (ID) => {
     try {
       setLoading();
       const res = await Axios.get('/api/staffrelative/staff/' + ID)
-      if (!res.data.isSuccessed) {
-        setAlert('Staff Relative', 'Loading : ' + res.data.message)
-        dispatch({ type: LOAD_STAFF_RELATIVE_BY_STAFF_ID, payload: res.data.result });
-        clearLoading(); return;
-      }
-      dispatch({ type: LOAD_STAFF_RELATIVE_BY_STAFF_ID, payload: res.data.result });
+      if (!res.data.isSuccessed) 
+        throw res.data;
       setAlert('Staff Relative', 'Loading : ' + 'Transaction Succesfully', true)
 
     } catch (error) {
-      clearLoading();
       setAlert('Staff Relative', 'Loading : ' + error.message)
+      return;
     }
     clearLoading();
 
@@ -94,16 +89,15 @@ const StaffRelativeState = (props) => {
       setLoading();
       const res = await Axios.post('/api/staffRelative/add', staffRelative)
       if (!res.data.isSuccessed) {
-        setAlert('Staff Relative', 'Add : ' + res.data.message)
-        clearLoading(); return;
+        throw res.data;
       }
       staffRelative.REL_ID = res.data.LAST_INSERT_ID;
       dispatch({ type: type, payload: staffRelative });
       setAlert('Staff Relative', 'Add : ' + 'Transaction Successfully', true)
-      return true;
     } catch (error) {
       setAlert('Staff Relative', 'Add : ' + error.message)
 
+      return;
     }
     clearLoading()
   }
@@ -114,14 +108,13 @@ const StaffRelativeState = (props) => {
       console.log(`from update relative by type ${type} \n` + json(staffRelative))
       const res = await Axios.put('/api/staffRelative/update', staffRelative)
       if (!res.data.isSuccessed) {
-        setAlert('Staff Relative', 'Update : ' + res.data.message)
-        clearLoading(); return;
+throw res.data;
       }
       dispatch({ type: type, payload: staffRelative });
       setAlert('Staff Relative', 'Update : ' + 'Transaction Successfully', true)
     } catch (error) {
       setAlert('Staff Relative', 'Update : ' + error.message)
-      clearLoading()
+      return;
     }
     clearLoading()
   }
@@ -136,14 +129,13 @@ const StaffRelativeState = (props) => {
       // const res = await Axios.delete('/api/staffRelative/delete',staffRelative )
       // window.alert(JSON.stringify(staffRelative))
       if (!res.data.isSuccessed) {
-        setAlert('Staff Relative', 'Delete : ' + res.data.message)
-        clearLoading(); return;
+        throw res.data;
       }
       dispatch({ type: type, payload: staffRelative });
       setAlert('Staff Relative', 'Delete : ' + 'Transaction Successfully', true)
     } catch (error) {
       setAlert('Staff Relative', 'Delete : ' + error.message)
-      clearLoading()
+      return;
     }
     clearLoading()
 

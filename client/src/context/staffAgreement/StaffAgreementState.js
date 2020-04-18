@@ -28,13 +28,13 @@ const StaffAgreementState = (props) => {
       setLoading();
       const res = await Axios.get('/api/staffagreement')
       if (!res.data.isSuccessed) {
-        setAlert('Staff Agreement', 'Loading :' + res.data.message)
-        clearLoading(); return;
+        throw res.data;
       }
       dispatch({ type: LOAD_STAFF_AGREEMENT, payload: res.data.result });
       setAlert('Staff Agreement', 'Loading :' + 'Transaction Successfully', true)
     } catch (error) {
       setAlert('Staff Agreement', 'Loading :' + error.message)
+      return;
     }
     clearLoading();
 
@@ -44,10 +44,8 @@ const StaffAgreementState = (props) => {
       setLoading();
 
       const res = await Axios.get('/api/staffagreement/' + ID)
-      clearLoading();
       if (!res.data.isSuccessed) {
-        setAlert('Staff Agreement', 'Loading :' + res.data.message)
-        clearLoading(); return;
+        throw res.data;
       }
       if (res.data.result.length == 0) {
         setAlert('Staff Agreement', 'Loading :' + 'There is no matching Employee', true);
@@ -58,25 +56,25 @@ const StaffAgreementState = (props) => {
       setAlert('Staff Agreement', 'Loading :' + 'Transaction Successfully', true)
     } catch (error) {
       setAlert('Staff Agreement', 'Loading :' + error.message)
+      return;
     }
     clearLoading();
 
   }
   const addStaffAgreement = async (staffAgreement) => {
-    console.log('trigger');
 
     try {
       setLoading();
       const res = await Axios.post('/api/StaffAgreement/add', staffAgreement)
       if (!res.data.isSuccessed) {
-        setAlert('Staff Agreement', 'Adding :' + res.data.message)
-        clearLoading(); return;
+        throw res.data;
       }
       staffAgreement.AG_ID = res.data.LAST_INSERT_ID
       dispatch({ type: ADD_STAFF_AGREEMENT, payload: staffAgreement });
       setAlert('Staff Agreement', 'Adding :' + 'Transaction Successfully', true)
     } catch (error) {
       setAlert('Staff Agreement', 'Adding :' + error.message)
+      return;
     }
     clearLoading();
 
