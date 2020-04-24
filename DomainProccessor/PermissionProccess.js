@@ -4,8 +4,8 @@ class PermissionProccess extends Database {
 
    async loadDataByID(USER_ID, ACTION_ID) {
       const result = await this.load(`select * from 
-      (select * from "PERMISSION" where USER_ID=:0 and action_id =:1 ORDER BY INDEX_NO desc)
-       where    ROWNUM =1`
+         (select * from "PERMISSION" where USER_ID=:0 and action_id =:1 ORDER BY INDEX_NO desc)
+         where    ROWNUM =1`
          , [USER_ID, ACTION_ID])
       return result;
    }
