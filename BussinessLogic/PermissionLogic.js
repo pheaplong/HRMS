@@ -7,7 +7,7 @@ class PermissionLogic {
       const result = await this.permissionProccess.loadDataByID(USER_ID, ACTION_ID)
       if (!result.isSuccessed)
          return result
-      if (!result.result[0].STATUS_ID == 37)
+      if (result.result == 0 || result.result[0].STATUS_ID == 37)
          return { message: 'Permission Denied' }
       return result
 

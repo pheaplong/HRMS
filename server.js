@@ -14,6 +14,7 @@ const UserAccountRoute = require('./route/UserAccountRoute')
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const authenthicateUser = require('./middleware/SECURITY').authenthicateUser
+const checkPermission = require('./middleware/SECURITY').checkPermission
 // const InitializePassport=require('./middleware/InitializePassport.js');
 // InitializePassport(passport,)
 
@@ -24,7 +25,7 @@ App.use(cors());
 
 App.use('/api/UserAccount', UserAccountRoute);
 // App.use('/api/staff', StaffRoute);
-App.use('/api/staff', [authenthicateUser], StaffRoute);
+App.use('/api/staff', [authenthicateUser, checkPermission], StaffRoute);
 App.use('/api/Department', [authenthicateUser], DepartmentRoute);
 App.use('/api/LeaveHistory', [authenthicateUser], LeaveHistoryRoute);
 App.use('/api/LeaveType', [authenthicateUser], LeaveTypeRoute);

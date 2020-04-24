@@ -3,6 +3,8 @@ import alertContext from '../alert/alertContext'
 import StaffContext from './StaffContext';
 import StaffReducer from './StaffReducer';
 import React from 'react'
+import  GlobalLibrary from '../../helper/GlobalLibrary'
+
 import {
    LOAD_STAFF,
    LOAD_STAFF_BY_ID,
@@ -42,6 +44,7 @@ const StaffState = (props) => {
 
 
    const loadStaff = async () => {
+      
       try {
          setLoading();
          const res = await Axios.get('/api/staff')
