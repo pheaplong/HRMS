@@ -1,17 +1,18 @@
+/* eslint-disable*/
 import React, { useState, useContext, useEffect } from 'react'
 
 import Alert from '../layout/Alert'
 import Spinner from '../layout/Spinner'
 import StaffExperienceContext from './../../context/StaffExperience/StaffExperienceContext'
 import StaffContext from './../../context/staff/StaffContext'
-import { RELATION_TYPE, STATUS_TYPE, GENDER_TYPE } from '../../helper/Constant'
-import {
-  ADD_STAFF_EXPERIENCE,
-  UPDATE_STAFF_EXPERIENCE,
-} from '../../context/type'
+// import { RELATION_TYPE, STATUS_TYPE, GENDER_TYPE } from '../../helper/Constant'
+// import {
+//   ADD_STAFF_EXPERIENCE,
+//   UPDATE_STAFF_EXPERIENCE,
+// } from '../../context/type'
 
 const StaffExperienceModifiedModal = ({ type, staffID }) => {
-  const { loading, addStaffExperience, current, updateStaffExperience, setCurrent, StaffExperiences } = useContext(StaffExperienceContext)
+  const { loading, addStaffExperience, current, updateStaffExperience, StaffExperiences } = useContext(StaffExperienceContext)
   const { staffs, loadStaff } = useContext(StaffContext)
   const [staffExperience, setStaffExperience] = useState({
     // STF_EXP_ID: '',
@@ -30,17 +31,17 @@ const StaffExperienceModifiedModal = ({ type, staffID }) => {
 
   const {
     // STF_EXP_ID,
-    STF_FULLNAME,
+    // STF_FULLNAME,
     STF_ID,
     STF_POS,
     STF_ST_D,
     STF_LT_D,
     STF_REASON,
-    STATUS_ID,
-    USR_CREA,
-    DT_CREA,
-    USR_UPDT,
-    DT_UPDT
+    // STATUS_ID,
+    // USR_CREA,
+    // DT_CREA,
+    // USR_UPDT,
+    // DT_UPDT
   } = staffExperience
  
   useEffect(() => {

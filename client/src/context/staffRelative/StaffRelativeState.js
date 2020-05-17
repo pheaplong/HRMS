@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import { useReducer, useEffect, useContext } from 'react'
 import alertContext from '../alert/alertContext'
 import StaffRelativeContext from './StaffRelativeContext';

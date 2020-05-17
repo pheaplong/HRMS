@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import { SET_ALERT, REMOVE_ALERT } from '../type';
 
 export default (state, action) => {

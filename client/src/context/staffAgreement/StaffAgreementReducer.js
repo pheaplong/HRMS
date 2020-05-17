@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import {Reducer} from 'react'
 import {LOAD_STAFF_AGREEMENT,
    ADD_STAFF_AGREEMENT,

@@ -1,3 +1,4 @@
+/* eslint-disable*/
 //#region Staff from './Staff'
 import React, { useContext, useEffect, useState } from 'react'
 import StaffRelativeContext from '../../context/staffRelative/StaffRelativeContext';

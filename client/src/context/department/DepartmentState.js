@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import { useReducer, useEffect, useContext } from 'react'
 import DepartmentContext from './DepartmentContext';
 import DepartmentReducer from './DepartmentReducer';

@@ -80,8 +80,8 @@ const Register = ({ match }) => {
                </div>
             )
          }
-         <div className="form-group row">
-            <button type="submit" id='submit' className="btn btn-primary">{type === 'register' ? 'Register' : 'Log In'}</button>
+         <div style={{display:'flex',justifyContent:'space-evenly'}}>
+            <button type="submit" id='' className="btn btn-primary">{type === 'register' ? 'Register' : 'Log In'}</button>
             <Link className='btn btn-success' to={type === 'register' ? '/useraccount/Login' : '/useraccount/Register'}>{type === 'register' ? 'Log In' : 'Register'}</Link>
          </div>
       </form >

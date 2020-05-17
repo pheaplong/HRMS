@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import React,{ useReducer, useEffect,useContext } from 'react'
 import alertContext from '../alert/alertContext'
 import StatusTypeContext from './StatusTypeContext';

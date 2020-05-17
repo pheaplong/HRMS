@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './component/home/Home'
 import StatusTypeState from './context/statusType/StatusTypeState'
 import UserAccountState from './context/UserAccount/UserAccountState'
+import UserAccounts from './component/UserAccount/UserAccounts'
 import PrivateRoute from './PrivateRoute'
 import Login from './component/UserAccount/Login'
 import Register from './component/UserAccount/Register'
@@ -45,104 +46,88 @@ import StaffExperiences from './component/StaffExperience/StaffExperiences'
 import AlertState from './context/alert/AlertState'
 import Alert from './component/layout/Alert'
 import Dashboard from './component/Dashboard'
+import GlobalLibrary from './helper/GlobalLibrary';
 //import StatusTypeState from './context/statusType/StatusTypeState'
 function App() {
-   const checkTime = (i) => {
-      if (i < 10) {
-         i = "0" + i;
-      }
-      return i;
-   }
-   const startTime = () => {
-      var today = new Date();
-      var h = today.getHours();
-      var m = today.getMinutes();
-      var s = today.getSeconds();
-      // add a zero in front of numbers<10
-      m = checkTime(m);
-      s = checkTime(s);
-      document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
-      let t = setTimeout(function () {
-         startTime()
-      }, 500);
-   }
-   useEffect(() => {
-      startTime()
+  useEffect(() => {
+    // startTime()
+    return () => {
+      // document.remove(script)
+    }
+  }, [])
+  return (
+    <div className="App">
+      <AlertState>
+        <UserAccountState>
+          <DepartmentState>
+            <PositionTypeState>
+              <StaffAgreementState>
+                <StatusTypeState>
+                  <StaffState>
+                    <StaffRelativeState>
+                      <StaffExperienceState>
 
-      return () => {
-      }
-   }, [])
-   return (
-      <div className="App">
-         <AlertState>
-            <UserAccountState>
+                        <Router>
+                          <Navbar />
+                          <div className="container pt-2">
+                            <div id="time" style={{
+                              fontSize: '1em',
+                              color: 'white',
+                              position: 'fixed',
+                              bottom: '3px',
+                              right: '1%',
+                              zIndex: '999'
+                            }}></div>
 
-               <DepartmentState>
-                  <PositionTypeState>
-                     <StaffAgreementState>
-                        <StatusTypeState>
-                           <StaffState>
-                              <StaffRelativeState>
-                                 <StaffExperienceState>
+                            <Switch>
+                              <Route exact path="/UserAccount" component={UserAccounts} />
+                              <Route exact path="/UserAccount/:type" component={Register} />
+                              <PrivateRoute exact path="/Dashboard" component={Dashboard} />
+                              {/* STAFF */}
+                              <Route exact path="/Staff" component={Staffs} />
+                              <PrivateRoute exact path="/Staff/:id" component={StaffInfo} />
+                              <PrivateRoute exact path="/StaffRelative" component={StaffRelatives} />
+                              <PrivateRoute exact path="/Staffexperience" component={StaffExperiences} />
 
-                                    <Router>
-                                       <Navbar />
-                                       <div className="container pt-2">
-                                          <div id="time" style={{
-                                             fontSize: '1em',
-                                             color: 'white',
-                                             position: 'fixed',
-                                             bottom: '3px',
-                                             right: '1%',
-                                             zIndex: '2'
-                                          }}></div>
+                              {/* STAFF_AGREEMENT */}
+                              <PrivateRoute exact path="/StaffAgreement" component={StaffAgreements} />
+                              <PrivateRoute exact path="/StaffAgreement/report" component={RptStaffAgreement} />
 
-                                          <Switch>
-
-                                             <Route exact path="/UserAccount/:type" component={Register} />
-                                             <PrivateRoute exact path="/Dashboard" component={Dashboard} />
-                                             {/* STAFF */}
-                                             <Route exact path="/Staff" component={Staffs} />
-                                             <PrivateRoute exact path="/Staff/:id" component={StaffInfo} />
-                                             <PrivateRoute exact path="/StaffRelative" component={StaffRelatives} />
-                                             <PrivateRoute exact path="/Staffexperience" component={StaffExperiences} />
-
-                                             {/* STAFF_AGREEMENT */}
-                                             <PrivateRoute exact path="/StaffAgreement" component={StaffAgreements} />
-                                             <PrivateRoute exact path="/StaffAgreement/report" component={RptStaffAgreement} />
-
-                                             {/* DEPARTMENT */}
-                                             <PrivateRoute exact path="/department" component={Departments} />
-                                             <PrivateRoute exact path="/department/:id" component={Department} />
-                                             {/* <Route exact path="/department/:id" render={() => (<Department/>)} /> */}
-                                             {/* <Route path="/" render={() => (<Register />)} /> */}
-                                          </Switch>
-                                          <span id='sProccess' style={{
-                                             fontSize: 'rem',
-                                             color: 'white',
-                                             position: 'fixed',
-                                             bottom: '3px',
-                                             zIndex: '2'
-                                          }}>Human Resource Management System</span>
-
-
-                                       </div>
-                                    </Router>
-                                 </StaffExperienceState>
-                              </StaffRelativeState>
-                           </StaffState>
-                        </StatusTypeState>
-                     </StaffAgreementState>
-                  </PositionTypeState>
-               </DepartmentState>
-               <div className="footer">
-                  {/* <span>Proccess : none</span> */}
-                  <Alert />
-               </div>
-            </UserAccountState>
-         </AlertState>
-      </div>
-   );
+                              {/* DEPARTMENT */}
+                              <PrivateRoute exact path="/department" component={Departments} />
+                              <PrivateRoute exact path="/department/:id" component={Department} />
+                              {/* <Route exact path="/department/:id" render={() => (<Department/>)} /> */}
+                              {/* <Route path="/" render={() => (<Register />)} /> */}
+                              <Route exact path="/" component={Home} />
+                            </Switch>
+                            <span id='sProccess' style={{
+                              fontSize: 'rem',
+                              color: 'white',
+                              position: 'fixed',
+                              bottom: '3px',
+                              zIndex: '901'
+                            }}>Human Resource Management System</span>
+                          </div>
+                        </Router>
+                      </StaffExperienceState>
+                    </StaffRelativeState>
+                  </StaffState>
+                </StatusTypeState>
+              </StaffAgreementState>
+            </PositionTypeState>
+          </DepartmentState>
+          <div className="footer"
+            style={{ zIndex: '900' }}
+          >
+            {/* <span>Proccess : none</span> */}
+            <Alert />
+          </div>
+        </UserAccountState>
+      </AlertState>
+    </div>
+  );
 }
 
 export default App;
+
+

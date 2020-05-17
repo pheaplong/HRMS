@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import { Reducer } from 'react'
 import {
    ADD_DEPARTMENT,

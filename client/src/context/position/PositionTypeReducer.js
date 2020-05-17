@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import {
    LOAD_POSITION_TYPE,
    FILTER_POSITION_TYPE,

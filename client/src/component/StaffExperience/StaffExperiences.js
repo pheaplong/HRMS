@@ -1,3 +1,4 @@
+/* eslint-disable*/
 //#region Staff from './Staff'
 import React, { useContext, useEffect, useState } from 'react'
 import StaffExperienceContext from '../../context/StaffExperience/StaffExperienceContext';
@@ -6,14 +7,14 @@ import StaffExperience from './StaffExperience'
 import Table from '../layout/Table'
 import PopUpButton from '../layout/PopUpButton'
 import Spinner from '../layout/Spinner'
-import StatusContext from '.././../context/statusType/StatusTypeContext'
-import { RELATION_TYPE } from '../../helper/Constant'
+// import StatusContext from '.././../context/statusType/StatusTypeContext'
+// import { RELATION_TYPE } from '../../helper/Constant'
 
 //#endregion
 const StaffExperiences = ({ staffID }) => {
   const {
 
-    staffExperiencesByStfID,
+    // staffExperiencesByStfID,
     filterStaffExperience,
     filter,
     clearFilter,
@@ -21,7 +22,7 @@ const StaffExperiences = ({ staffID }) => {
     deleteStaffExperience,
     current,
     clearCurrent,
-    loadStaffExperienceByStaffID,
+    // loadStaffExperienceByStaffID,
     loading } = useContext(StaffExperienceContext);
   const [searchValue, setSearchValue] = useState('')
   useEffect(() => {
@@ -42,14 +43,15 @@ const StaffExperiences = ({ staffID }) => {
   let body = [];
   // const staffExperience=<StaffExperience/>
   const staffExperienceModifiedModal = <StaffExperienceModifiedModal type='add' staffID={staffID} />
-  const onCbChange = e => {
-    const tmp = {
-      searchValue: searchValue,
-    }
-    console.log(tmp);
+  // use
+  // const onCbChange = e => {
+  //   const tmp = {
+  //     searchValue: searchValue,
+  //   }
+  //   console.log(tmp);
 
-    filter(tmp)
-  }
+  //   filter(tmp)
+  // }
   const onChange = e => {
     setSearchValue(e.target.value)
     const tmp = {
@@ -62,9 +64,7 @@ const StaffExperiences = ({ staffID }) => {
     clearFilter()
   }
   const initialTable = (list, body, staffID) => {
-    list.map((staffExperience, i) => {
-      body.push(<StaffExperience staffID={staffID} key={i} No={i + 1} staffExperience={staffExperience} />);
-    });
+    list.map((staffExperience, i) => { body.push(<StaffExperience staffID={staffID} key={i} No={i + 1} staffExperience={staffExperience} />); });
 
   }
   const btnDelete_onClick = () => {

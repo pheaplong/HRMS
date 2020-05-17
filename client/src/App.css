@@ -2,18 +2,16 @@
 
 @media screen and (min-width: 1200px){
 
-    .container {
+    /* .container {
         max-width: 100%;
-    }
+    } */
     }
     form{
         height:100%
     }
 html,body{
-    height: 100%;
     margin: 0em;
     padding: 0px;
-    position:relative;
     min-width:775px;        /* Suppose you want minimum width of 1000px */
    width: auto !important;
    background-color: #fff;  /* Firefox will set width as auto */
@@ -24,14 +22,15 @@ html,body{
     height: 100%;
 }
 .App {
+  
     height: 100%;
 }
 .App > .container{
     border:1px solid rgba(0, 0, 255, 0.2);
     box-shadow: 2px 0px 8px  rgba(50, 111, 140, 0.5), -2px 0px 8px  rgba(50, 111, 140, 0.5);
     position: relative;
-    min-height: 600px;
-    background-color :#fcfcfc;
+    min-height: 100vh;
+    background-color :#fff;
     /* min-width:775px; */
     /* margin-left : auto;
     margin-right : auto; */
@@ -89,7 +88,7 @@ html,body{
 .body{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
-    background-color: #eee;
+    background-color: #F8F9FA;
 }
 .pageSector{
     
@@ -154,6 +153,7 @@ tr{
     display: block;
     position: absolute;
     background-color: #0292B7;
+    color: #FFF ;
 
   }
 .wrapper{
@@ -180,6 +180,7 @@ tr{
     content:'';
     position:absolute;
     top:0;
+
     left:0;
     right:0;
     bottom:0;
@@ -198,6 +199,7 @@ tr{
     border-radius: 0px;
     
 }
+
 .content{
     height: 500px;
     display: grid;
@@ -248,4 +250,23 @@ bottom: 40px;
 right: 0;
     border:1px solid rgba(0, 0, 255, 0.2);
     box-shadow: 2px 0px 8px  rgba(50, 111, 140, 0.5), -2px 0px 8px  rgba(50, 111, 140, 0.5);
+}
+#permisson-wrapper{
+  display: flex;
+  height: calc(100vh -40px);
+  padding: 10% 5%;
+  width: 80%;
+}
+.permission-left{
+  height: 100%;
+  width: 50%;
+}
+.permission-right{
+  height: 100%;
+  width: 50%;
+  padding-left: 15%;
+}
+.permission-right button{
+  align-self: flex-end;
+  margin-left: 100%;
 }

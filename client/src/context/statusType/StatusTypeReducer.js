@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import {Reducer} from 'react'
 import { LOAD_STATUS_TYPE} from '../type'   
 const StatusTypeReducer=(state,action)=>{

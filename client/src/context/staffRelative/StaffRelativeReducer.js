@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import {Reducer} from 'react'
 import { LOAD_STAFF_RELATIVE,
    LOAD_STAFF_RELATIVE_BY_STAFF_ID,

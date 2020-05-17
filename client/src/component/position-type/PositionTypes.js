@@ -1,15 +1,16 @@
+/* eslint-disable*/
 import React, { useContext, useEffect } from 'react'
 import Table from '../layout/Table'
 import PositionType from './PositionType'
 import PopUpButton from '../../component/layout/PopUpButton'
 import PositionTypeContext from '../../context/position/PositionTypeContext'
 import PositionTypeModifyModal from './PositionTypeModifyModal'
-import Alert from '../layout/Alert'
+// import Alert from '../layout/Alert'
 const PositionTypes = (props) => {
    const columns = ['Position ID', 'Position Name', 'Emps'];
    const { PositionTypes,
       loadPositionTypeByFilter,
-      loadPositionType,
+      // loadPositionType,
       deletePositionType,
       setCurrent,
       current,

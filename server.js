@@ -25,21 +25,23 @@ App.use(cors());
 
 App.use('/api/UserAccount', UserAccountRoute);
 // App.use('/api/staff', StaffRoute);
-App.use('/api/staff', [authenthicateUser, checkPermission], StaffRoute);
-App.use('/api/Department', [authenthicateUser], DepartmentRoute);
-App.use('/api/LeaveHistory', [authenthicateUser], LeaveHistoryRoute);
-App.use('/api/LeaveType', [authenthicateUser], LeaveTypeRoute);
-App.use('/api/PositionType', [authenthicateUser], PositionTypeRoute);
-App.use('/api/PositionHistory', [authenthicateUser], PositionHistoryRoute);
-App.use('/api/StaffAgreement', [authenthicateUser], StaffAgreementRoute);
-App.use('/api/StaffRelative', [authenthicateUser], StaffRelativeRoute);
-App.use('/api/StaffExperience', [authenthicateUser], StaffExperienceRoute);
+// App.use('/api/staff', [authenthicateUser, checkPermission], StaffRoute);
+App.use('/api/staff', [authenthicateUser], StaffRoute);
+App.use('/api/Department', [authenthicateUser, checkPermission], DepartmentRoute);
+App.use('/api/LeaveHistory', [authenthicateUser, checkPermission], LeaveHistoryRoute);
+App.use('/api/LeaveType', [authenthicateUser, checkPermission], LeaveTypeRoute);
+App.use('/api/PositionType', [authenthicateUser, checkPermission], PositionTypeRoute);
+App.use('/api/PositionHistory', [authenthicateUser, checkPermission], PositionHistoryRoute);
+// App.use('/api/StaffAgreement', [authenthicateUser], StaffAgreementRoute);
+App.use('/api/StaffAgreement', [authenthicateUser, checkPermission], StaffAgreementRoute);
+App.use('/api/StaffRelative', [authenthicateUser, checkPermission], StaffRelativeRoute);
+App.use('/api/StaffExperience', [authenthicateUser, checkPermission], StaffExperienceRoute);
 App.use('/api/StatusType', [authenthicateUser], StatusTypeRoute);
 App.get('/', (req, res) => {
-   res.send('go back')
+  res.send('go back')
 });
 
 App.listen(5000, () => {
-   console.log(`Server Up at Localhost port 5000`);
+  console.log(`Server Up at Localhost port 5000`);
 
 })
