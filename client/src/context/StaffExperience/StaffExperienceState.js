@@ -6,6 +6,7 @@ import StaffExperienceContext from './StaffExperienceContext';
 import StaffExperienceReducer from './StaffExperienceReducer';
 import Axios from 'axios'
 import React from 'react'
+import GlobalLibrary from '../../helper/GlobalLibrary'
 import {
   ADD_STAFF_EXPERIENCE,
   LOAD_STAFF_EXPERIENCE,
@@ -27,11 +28,13 @@ const StaffExperienceState = (props) => {
     current: null,
     loading: false
   }
+  const globalLibrary = new GlobalLibrary()
   const [state, dispatch] = useReducer(StaffExperienceReducer, initialState);
   const { setAlert } = useContext(alertContext)
   const loadStaffExperience = async () => {
     try {
       setLoading();
+      globalLibrary.embeddedPermission('0501')
       const res = await Axios.get('/api/StaffExperience')
       if (!res.data.isSuccessed) {
 throw res.data;
@@ -48,7 +51,7 @@ throw res.data;
   const loadStaffExperienceByStaffID = async (ID) => {
     try {
       setLoading();
-
+      globalLibrary.embeddedPermission('0501')
       const res = await Axios.get('/api/StaffExperience/' + ID)
       clearLoading();
       if (!res.data.isSuccessed) {
@@ -69,8 +72,7 @@ throw res.data;
 
   }
   const addStaffExperience = async (StaffExperience) => {
-    console.log('trigger');
-
+      globalLibrary.embeddedPermission('0502')
     try {
       setLoading();
       const res = await Axios.post('/api/StaffExperience/add', StaffExperience)
@@ -92,6 +94,7 @@ throw res.data;
   const updateStaffExperience = async (staffRelative) => {
     try {
       setLoading();
+      globalLibrary.embeddedPermission('0503')
       // console.log(`from update relative by type ${type} \n` + json(staffRelative))
       const res = await Axios.put('/api/staffexperience/update', staffRelative)
       if (!res.data.isSuccessed) {
@@ -109,6 +112,7 @@ throw res.data;
   const deleteStaffExperience = async (staffRelative, type) => {
 
     try {
+      globalLibrary.embeddedPermission('0504')
       setLoading();
       const res = await Axios.delete('/api/StaffExperience/delete', {
         data: staffRelative

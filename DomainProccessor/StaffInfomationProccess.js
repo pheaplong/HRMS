@@ -5,7 +5,7 @@ const lib=require('../lib/GlobalLibrary')
 class StaffInfomationProccess extends Database {
 
    async loadData() {
-      const result = await this.load('select * from VW_STF_INFO',[],s=>{
+      const result = await this.load('select * from VW_STF_INFO  where PRESENT <>4',[],s=>{
          s.STF_DOB=new Date(s.STF_DOB)
       })
       return result;
@@ -67,9 +67,9 @@ class StaffInfomationProccess extends Database {
       return result;
    }
    async deleteData(StaffInfomationDomain) {
-      const { stf_id } = StaffInfomationDomain;
-      const result = await this.execute("update stf_info set present=4 where stf_id =:stf_id",
-         { stf_id });
+      const { STF_ID } = StaffInfomationDomain;
+      const result = await this.execute("update stf_info set present=4 where STF_ID =:STF_ID",
+         { STF_ID });
       return result;
    }
 

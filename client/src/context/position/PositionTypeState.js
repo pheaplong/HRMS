@@ -4,6 +4,7 @@ import PositionTypeContext from './PositionTypeContext';
 import PositionTypeReducer from './PositionTypeReducer';
 import alertContext from '../alert/alertContext'
 import React from 'react'
+import GlobalLibrary from '../../helper/GlobalLibrary'
 import {
    LOAD_POSITION_TYPE,
    FILTER_POSITION_TYPE,
@@ -25,12 +26,14 @@ const PositionTypeState = (props) => {
       PositionTypes: [],
       current:null
    };
+  const globalLibrary = new GlobalLibrary()
    const [state, dispatch] = useReducer(PositionTypeReducer, initialState);
    const {setAlert} = useContext(alertContext)
    //LOAD_PositionType
    const loadPositionType = async () => {
       try {
          setLoading();
+      globalLibrary.embeddedPermission('0701')
          const res = await Axios.get('/api/PositionType')
          if (!res.data.isSuccessed) {
             setAlert('Position','Loading : '+res.data)
@@ -47,6 +50,7 @@ const PositionTypeState = (props) => {
    }
    const loadPositionTypeByFilter = async (DEP_ID) => {
          try {
+            globalLibrary.embeddedPermission('0701')
             setLoading();
             const res = await Axios.get('/api/PositionType')
             if (!res.data.isSuccessed) {
@@ -66,6 +70,7 @@ const PositionTypeState = (props) => {
    //ADD_PositionType
    const addPositionType = async PositionType => {
       try {
+         globalLibrary.embeddedPermission('0702')
          setLoading();
          const res = await Axios.post('/api/PositionType/add', PositionType)
          if (!res.data.isSuccessed) {
@@ -74,15 +79,16 @@ const PositionTypeState = (props) => {
          PositionType.POS_ID = res.data.LAST_INSERT_ID;
          dispatch({ type: ADD_POSITION_TYPE, payload: PositionType });
          setAlert('Position','Add : '+'Transaction Successfully',true)
+         clearLoading()
       } catch (error) {
          setAlert('Position','Add : '+error.message)
          
       }
-      clearLoading()
    }
    //UPDATE
    const updatePositionType = async PositionType => {
       try {
+         globalLibrary.embeddedPermission('0703')
          setLoading();
          const res = await Axios.put('/api/PositionType/update', PositionType)
          if (!res.data.isSuccessed) {
@@ -101,6 +107,7 @@ const PositionTypeState = (props) => {
    const deletePositionType = async PositionType => {
       
       try {
+         globalLibrary.embeddedPermission('0704')
          setLoading();
          const res = await Axios.delete('/api/PositionType/delete',{
             data:PositionType

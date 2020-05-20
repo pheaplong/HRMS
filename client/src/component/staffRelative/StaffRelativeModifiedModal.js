@@ -1,12 +1,13 @@
 /* eslint-disable*/
 import React, { useState, useContext, useEffect } from 'react'
-
+import useScript from '../layout/useScript'
 import Alert from '../layout/Alert'
 import Spinner from '../layout/Spinner'
 import StaffRelativeContext from './../../context/staffRelative/StaffRelativeContext'
 import StatusTypeContext from './../../context/statusType/StatusTypeContext'
 import StaffContext from './../../context/staff/StaffContext'
 import { RELATION_TYPE, STATUS_TYPE, GENDER_TYPE } from '../../helper/Constant'
+// import GlobalLibrary from '../../helper/GlobalLibrary'
 import {
    ADD_STAFF_RELATIVE,
    ADD_STAFF_RELATIVE_BY_STAFF_ID,
@@ -15,6 +16,10 @@ import {
 } from '../../context/type'
 
 const StaffRelativeModifiedModal = ({ type, staffID }) => {
+   useScript({text:`
+      $(document).ready(function(){
+         $("#cbStaff").select2()
+      })`})
    const { loadStatus, allStatus } = useContext(StatusTypeContext)
    const { loading, addStaffRelative, current, updateStaffRelative, setCurrent, StaffRelatives } = useContext(StaffRelativeContext)
    const { staffs, loadStaff } = useContext(StaffContext)
@@ -31,6 +36,12 @@ const StaffRelativeModifiedModal = ({ type, staffID }) => {
    const cbStatus = allStatus.filter(c => c.CATEGORY == STATUS_TYPE)
    const cbGender = allStatus.filter(c => c.CATEGORY == GENDER_TYPE)
    useEffect(() => {
+      // const gl=new GlobalLibrary()
+      // let script= gl.LoadScriptByText(`
+      // $(document).ready(function(){
+      //    $("#cbStaff").select2()
+      // })`)
+
       loadStatus()
       loadStaff()
       type === 'add' ? setStaffRelative({
@@ -121,13 +132,11 @@ const StaffRelativeModifiedModal = ({ type, staffID }) => {
          <div className="form-group row">
             <label htmlFor="STF_ID" className="col-sm-2 col-form-label">Employee</label>
             <div className="col-sm-10">
-               <input type="text" id="txtStfID" disabled={staffID ? 'true' : undefined} className="form-control" name="STF_ID" onChange={onChange}
-                  list="data" value={STF_ID} />
-               <datalist id="data">
+               <select id="cbStaff" className="form-control" value={STF_ID}>
                   {staffs.map((item, key) =>
-                     <option key={key} value={item.STF_ID}>{item.STF_FN + ' ' + item.STF_LN}</option>
+                     <option key={key} value={item.STF_ID}>{item.STF_ID+' - '+item.STF_FN + ' ' + item.STF_LN}</option>
                   )}
-               </datalist>
+               </select>
             </div>
          </div>
          {/* Relation */}

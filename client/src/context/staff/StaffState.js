@@ -48,7 +48,7 @@ const StaffState = (props) => {
   const loadStaff = async () => {
 
     try {
-      globalLibrary.embeddedPermission(1)
+      globalLibrary.embeddedPermission('0201')
       setLoading();
       const res = await Axios.get('/api/staff')
       if (!res.data.isSuccessed) {
@@ -67,7 +67,7 @@ const StaffState = (props) => {
   const loadStaffByID = async (ID) => {
     try {
       setLoading();
-      globalLibrary.embeddedPermission(1)
+      globalLibrary.embeddedPermission('0201')
       const res = await Axios.get('/api/staff/' + ID)
       if (!res.data.isSuccessed) {
         throw res.data;
@@ -89,7 +89,7 @@ const StaffState = (props) => {
   const addStaff = async staff => {
     try {
 
-      globalLibrary.embeddedPermission(2)
+      globalLibrary.embeddedPermission('0202')
       setLoading();
       const res = await Axios.post('/api/staff/add', staff)
       if (!res.data.isSuccessed) {
@@ -107,7 +107,7 @@ const StaffState = (props) => {
   //UPDATE
   const updateStaff = async staff => {
     try {
-      globalLibrary.embeddedPermission(3)
+      globalLibrary.embeddedPermission('0203')
       setLoading();
       console.log('from state   ' + staff);
       const res = await Axios.put('/api/staff/update', staff)
@@ -127,7 +127,7 @@ const StaffState = (props) => {
   const deleteStaff = async staff => {
 
     try {
-      globalLibrary.embeddedPermission(4)
+      globalLibrary.embeddedPermission('0204')
       setLoading();
       const res = await Axios.delete('/api/staff/delete', {
         data: staff

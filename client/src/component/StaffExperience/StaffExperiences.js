@@ -89,19 +89,12 @@ const StaffExperiences = ({ staffID }) => {
           : (
             <div className='pageSector' style={{ overflow: 'hidden' }}>
               <div className='left-side'>
-
-
-                <ul>
-                  <li><PopUpButton text='Add' className={'btn  btn-sm btn-primary'}
+                  <PopUpButton text='Add' className={'btn  btn-sm btn-primary'}
                     component={staffExperienceModifiedModal}
                     onClosingModal={clearCurrent}
-                  /></li>
-                  <li>
+                  />
                     <button className="btn  btn-sm btn-danger"
                       onClick={btnDelete_onClick}>Delete</button>
-                  </li>
-
-                </ul>
               </div>
               <div className="right-side">
 

@@ -14,7 +14,6 @@ class GlobalLibrary {
     axios.defaults.headers.common['USER_ID'] = this.destructToken().user.USER_ID
     axios.defaults.headers.common['ACTION_ID'] = ACTION_ID
     setTimeout(() => {
-      axios.defaults.headers.common['USER_ID'] = ''
       axios.defaults.headers.common['ACTION_ID'] = ''
     }, 500);
   }

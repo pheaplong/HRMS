@@ -133,7 +133,7 @@ const StaffModifiedModal = ({ type, staffID }) => {
       <div className="form-group row">
         <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Date Of Birth</label>
         <div className="col-sm-10">
-          <input type="text" onChange={onChange} className="form-control" autoComplete='off'
+          <input type="date" pattern="\d{4}-\d{2}-\d{2}" onChange={onChange} className="form-control" autoComplete='off'
             name="STF_DOB" value={STF_DOB} placeholder="Date Of Birth" />
         </div>
       </div>

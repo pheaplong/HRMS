@@ -120,7 +120,6 @@ UserAccountRoute.put('/update', (req, res) => {
     res.json(data)
   }).catch(error => {
     console.log(error);
-
   })
 })
 UserAccountRoute.get('/', async (req, res) => {

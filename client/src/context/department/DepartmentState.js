@@ -4,6 +4,7 @@ import DepartmentContext from './DepartmentContext';
 import DepartmentReducer from './DepartmentReducer';
 import alertContext from '../alert/alertContext'
 import React from 'react'
+import GlobalLibrary from '../../helper/GlobalLibrary'
 import {
    LOAD_DEPARTMENT,
    LOAD_DEPARTMENT_BY_ID,
@@ -20,12 +21,14 @@ const DepartmentState = (props) => {
       department: {},
       departments: []
    };
+   const globalLibrary = new GlobalLibrary()
    const { setAlert } = useContext(alertContext);
    const [state, dispatch] = useReducer(DepartmentReducer, initialState);
    //LOAD_DEPARTMENT
    const loadDepartment = async () => {
       try {
          setLoading();
+         globalLibrary.embeddedPermission('0601')
          const res = await Axios.get('/api/department')
          if (!res.data.isSuccessed) {
             throw res.data;
@@ -45,6 +48,7 @@ const DepartmentState = (props) => {
    const loadDepartmentByID = async (id) => {
       try {
          setLoading();
+         globalLibrary.embeddedPermission('0601')
          const res = await Axios.get('/api/department/' + id)
          if (!res.data.isSuccessed) {
            throw res.data;
@@ -64,6 +68,7 @@ const DepartmentState = (props) => {
       try {
          setLoading();
          const temp=department;
+         globalLibrary.embeddedPermission('0602')
          const res = await Axios.post('/api/department/add', temp)
          if (!res.data.isSuccessed) {
             throw res.data;
@@ -71,12 +76,12 @@ const DepartmentState = (props) => {
          temp.DEP_ID=res.data.LAST_INSERT_ID;
          dispatch({ type: ADD_DEPARTMENT, payload: temp });
          setAlert('Department','Add : '+'Transaction Successfully',true)
+         clearLoading();
       } catch (error) {
          setAlert('Department','Add : '+error.message)
          return;
          
       }
-      clearLoading();
       
    }
 
