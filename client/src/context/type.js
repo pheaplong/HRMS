@@ -25,6 +25,7 @@ export const UPDATE_STAFF = 'UPDATE_STAFF';
 export const DELETE_STAFF = 'DELETE_STAFF';
 export const SET_CURRENT_STAFF = 'SET_CURRENT_STAFF';
 export const CLEAR_CURRENT_STAFF = 'CLEAR_CURRENT_STAFF';
+export const LOAD_SALARY = 'LOAD_SALARY';
 
 //#endregion
 

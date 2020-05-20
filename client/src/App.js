@@ -15,6 +15,7 @@ import Register from './component/UserAccount/Register'
 //#region  STAFF 
 import StaffState from './context/staff/StaffState';
 import Staffs from './component/Staff/Staffs'
+import Salary from './component/Staff/Salary'
 import StaffInfo from './component/Staff/StaffInfo'
 //#endregion
 
@@ -85,6 +86,7 @@ function App() {
                               <PrivateRoute exact path="/Dashboard" component={Dashboard} />
                               {/* STAFF */}
                               <Route exact path="/Staff" component={Staffs} />
+                              <Route exact path="/salary" component={Salary} />
                               <PrivateRoute exact path="/Staff/:id" component={StaffInfo} />
                               <PrivateRoute exact path="/StaffRelative" component={StaffRelatives} />
                               <PrivateRoute exact path="/Staffexperience" component={StaffExperiences} />

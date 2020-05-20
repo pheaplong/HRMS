@@ -62,4 +62,9 @@ StaffRoute.delete('/delete', (req, res) => {
     res.send(JSON.stringify(data, null, 2))
   })
 })
+StaffRoute.get('/salary', (req, res) => {
+  dp.loadSalary().then((data) => {
+    res.send(JSON.stringify(data, null, 2))
+  })
+})
 module.exports = StaffRoute;
