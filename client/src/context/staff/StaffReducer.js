@@ -6,6 +6,7 @@ import {LOAD_STAFF,
    UPDATE_STAFF,
    DELETE_STAFF,
    SET_LOADING,
+   LOAD_SALARY,
    CLEAR_LOADING,
    SET_CURRENT_STAFF,
    CLEAR_CURRENT_STAFF,DO_COMBO_BOX} from '../type'
@@ -16,6 +17,14 @@ const StaffReducer=(state,action)=>{
          return {
             ...state,
             staffs: action.payload,
+            loading: false
+         }
+         break;
+      case LOAD_SALARY:
+
+         return {
+            ...state,
+            salary: action.payload,
             loading: false
          }
          break;

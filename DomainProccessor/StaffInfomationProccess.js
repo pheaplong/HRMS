@@ -5,7 +5,7 @@ const lib=require('../lib/GlobalLibrary')
 class StaffInfomationProccess extends Database {
 
    async loadData() {
-      const result = await this.load('select * from VW_STF_INFO',[],s=>{
+      const result = await this.load('select * from VW_STF_INFO  where PRESENT <>4',[],s=>{
          s.STF_DOB=new Date(s.STF_DOB)
       })
       return result;
@@ -67,9 +67,20 @@ class StaffInfomationProccess extends Database {
       return result;
    }
    async deleteData(StaffInfomationDomain) {
-      const { stf_id } = StaffInfomationDomain;
-      const result = await this.execute("update stf_info set present=4 where stf_id =:stf_id",
-         { stf_id });
+      const { STF_ID } = StaffInfomationDomain;
+      const result = await this.execute("update stf_info set present=4 where STF_ID =:STF_ID",
+         { STF_ID });
+      return result;
+   }
+   async loadSalary(StaffInfomationDomain) {
+      const result = await this.execute(`
+         select a.STF_ID,STF_LN ||' '|| STF_LN as Full_name,a.sal from(
+		select * from stf_agreement  t1 
+		where T1.ag_date=(select t2.ag_date from stf_agreement t2 where t2.stf_id=t1.stf_id)
+) a
+inner join STF_INFO b on b.STF_ID=a.STF_ID
+where b."PRESENT"<>4
+      `);
       return result;
    }
 

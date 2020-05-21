@@ -10,7 +10,7 @@ import StatusTypeContext from '../../context/statusType/StatusTypeContext'
 import { AGREEMENT_TYPE } from '../../helper/Constant'
 import { json } from 'body-parser'
 import { NavLink } from 'react-router-dom'
-const GlobalLibrary=require('../../helper/GlobalLibrary')
+import GlobalLibrary from'../../helper/GlobalLibrary'
 
 const StaffAgreementModifiedModal = (props) => {
    const { staffs, loadStaff } = useContext(StaffContext)

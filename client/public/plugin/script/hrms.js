@@ -12,11 +12,12 @@ const startTime = () => {
   // add a zero in front of numbers<10
   m = checkTime(m);
   s = checkTime(s);
-  $('#time').text(h + ":" + m + ":" + s)
+//   $('#time').text(h + ":" + m + ":" + s)
   let t = setTimeout(function () {
     startTime()
   }, 500);
 }
 $(document).ready(() => {
-  startTime();
+   startTime();
 })
+

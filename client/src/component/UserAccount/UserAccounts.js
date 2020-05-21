@@ -18,38 +18,37 @@ const UserAccounts = () => {
   useEffect(() => {
     let script
     (async () => {
-      console.log('state');
       loadUserAccount()
       if (current) {
         const gl = new GlobalLibrary()
         const res = await Axios.get('/api/useraccount/' + current.USER_ID)
         // data:"${JSON.stringify({ oringinPermission: res.data.forTree })}",
         const sql = `
-        
-        $("#userPermissionTree").jstree({ "core" : { "data" : ${JSON.stringify(res.data.forTree)}},"plugins":["checkbox"]   }); 
-        $("#btnSavePermission").click(function(e){
-          e.preventDefault()
-          // console.log(JSON.stringify( { USER_ID:${current.USER_ID},originPermission: ${JSON.stringify(res.data.forTree)}, newPermission: $('#userPermissionTree').jstree(true).get_selected()}))
-        $.ajax({
-          type: 'POST',
-          async:false,
-          // data:'${JSON.stringify({ originPermission: res.data.forTree, newPermission: [1, 2, 2] })}',
-          data:JSON.stringify( { USER_ID:${current.USER_ID},originPermission: ${JSON.stringify(res.data.forTree)}, newPermission: $('#userPermissionTree').jstree(true).get_selected()}),
-          contentType: 'application/json',
-          url: 'http://localhost:5000/api/useraccount/permission',
-          success: function (res) {
-            if(res.isSuccessed)
-              console.log('success')
-            else{
-              console.log(res.message)
-            }
-          window.location.reload(false); 
-          },
-          error:function(e){
-            alert(e)
-          }
-        });
-        })
+        $(document).ready(function(){
+            $("#userPermissionTree").jstree({ "core" : { "data" : ${JSON.stringify(res.data.forTree)}},"plugins":["checkbox"]   }); 
+            $("#btnSavePermission").click(function(e){
+               e.preventDefault();
+               $.ajax({
+                  type: 'POST',
+                  async:false,
+                  dataType:'json',
+                  data:JSON.stringify( { USER_ID:${current.USER_ID},originPermission: ${JSON.stringify(res.data.forTree)}, newPermission: $('#userPermissionTree').jstree(true).get_selected()}),
+                  contentType: 'application/json',
+                  url: 'http://localhost:5000/api/useraccount/permission',
+                  success: function (res) {
+                     if(res.isSuccessed)
+                     console.log('success')
+                     else{
+                     console.log(res.message)
+                     }
+                   window.location.reload(false); 
+                  },
+                  error:function(e){
+                     alert(e)
+                  }
+               });
+            })
+         })
         `
         $('.permission-right').append('<div id=userPermissionTree><div>')
         script = gl.LoadScriptByText(sql)
@@ -59,6 +58,7 @@ const UserAccounts = () => {
     return () => {
       // $('.permission-right').empty()
       if (script) {
+        script.innerHTML=""
         document.body.removeChild(script)
         $('#userPermissionTree').remove()
       }
@@ -84,7 +84,7 @@ const UserAccounts = () => {
         <Table columns={columns} body={body} />
       </div>
       <div className="permission-right">
-        <button className="btn-primary btn-md" id='btnSavePermission'>Save</button>
+        <button className="btn-primary btn-md" id='btnSavePermission' >Save</button>
       </div>
     </div >
 

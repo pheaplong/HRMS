@@ -16,7 +16,8 @@ import {
   CLEAR_CURRENT_STAFF,
   SET_LOADING,
   CLEAR_LOADING,
-  DO_COMBO_BOX
+  DO_COMBO_BOX,
+  LOAD_SALARY
 } from '../type'
 import Axios from 'axios'
 
@@ -33,6 +34,7 @@ const StaffState = (props) => {
       STF_DOB: '',
       STF_POB: '',
       STATUS_ID: '',
+      salary:[2,2],
       image: null
     },
     staff: {},
@@ -48,7 +50,7 @@ const StaffState = (props) => {
   const loadStaff = async () => {
 
     try {
-      globalLibrary.embeddedPermission(1)
+      globalLibrary.embeddedPermission('0201')
       setLoading();
       const res = await Axios.get('/api/staff')
       if (!res.data.isSuccessed) {
@@ -67,7 +69,7 @@ const StaffState = (props) => {
   const loadStaffByID = async (ID) => {
     try {
       setLoading();
-      globalLibrary.embeddedPermission(1)
+      globalLibrary.embeddedPermission('0201')
       const res = await Axios.get('/api/staff/' + ID)
       if (!res.data.isSuccessed) {
         throw res.data;
@@ -89,7 +91,7 @@ const StaffState = (props) => {
   const addStaff = async staff => {
     try {
 
-      globalLibrary.embeddedPermission(2)
+      globalLibrary.embeddedPermission('0202')
       setLoading();
       const res = await Axios.post('/api/staff/add', staff)
       if (!res.data.isSuccessed) {
@@ -98,16 +100,16 @@ const StaffState = (props) => {
       staff.STF_ID = res.data.LAST_INSERT_ID;
       dispatch({ type: ADD_STAFF, payload: staff });
       setAlert('Staff', 'Add : ' + 'Transaction Successfully', true)
+      clearLoading()
     } catch (error) {
       setAlert('Staff', 'Add : ' + error.message)
       return;
     }
-    clearLoading()
   }
   //UPDATE
   const updateStaff = async staff => {
     try {
-      globalLibrary.embeddedPermission(3)
+      globalLibrary.embeddedPermission('0203')
       setLoading();
       console.log('from state   ' + staff);
       const res = await Axios.put('/api/staff/update', staff)
@@ -127,7 +129,7 @@ const StaffState = (props) => {
   const deleteStaff = async staff => {
 
     try {
-      globalLibrary.embeddedPermission(4)
+      globalLibrary.embeddedPermission('0204')
       setLoading();
       const res = await Axios.delete('/api/staff/delete', {
         data: staff
@@ -156,6 +158,25 @@ const StaffState = (props) => {
 
     }
   }
+  const loadSalary = async () => {
+
+    try {
+      globalLibrary.embeddedPermission('0205')
+      setLoading();
+      const res = await Axios.get('/api/staff/salary')
+      if (!res.data.isSuccessed) {
+        throw res.data;
+      }
+      dispatch({ type: LOAD_SALARY, payload: res.data.result});
+      setAlert('Staff', 'Salary : ' + 'Transaction Successfully', true)
+    } catch (error) {
+      setAlert('Staff', 'Salary : ' + error.message)
+
+      return;
+    }
+    clearLoading()
+
+  }
   const setLoading = () => {
     dispatch({ type: SET_LOADING });
   }
@@ -173,7 +194,8 @@ const StaffState = (props) => {
       staffs: state.staffs,
       staff: state.staff,
       loading: state.loading,
-      loadStaff,
+      salary:state.salary,
+      loadStaff,loadSalary,
       loadStaffByID,
       addStaff,
       updateStaff,

@@ -5,6 +5,7 @@ import StaffAgreementContext from './StaffAgreementContext';
 import StaffAgreementReducer from './StaffAgreementReducer';
 import Axios from 'axios'
 import React from 'react'
+import GlobalLibrary from '../../helper/GlobalLibrary'
 import {
   ADD_STAFF_AGREEMENT,
   LOAD_STAFF_AGREEMENT,
@@ -22,10 +23,12 @@ const StaffAgreementState = (props) => {
     current: null,
     loading: false
   }
+  const gl=new GlobalLibrary();
   const [state, dispatch] = useReducer(StaffAgreementReducer, initialState);
   const { setAlert } = useContext(alertContext)
   const loadStaffAgreement = async () => {
     try {
+      gl.embeddedPermission('0301')
       setLoading();
       const res = await Axios.get('/api/staffagreement')
       if (!res.data.isSuccessed) {
@@ -43,7 +46,7 @@ const StaffAgreementState = (props) => {
   const loadStaffAgreementByID = async (ID) => {
     try {
       setLoading();
-
+      gl.embeddedPermission('0301')
       const res = await Axios.get('/api/staffagreement/' + ID)
       if (!res.data.isSuccessed) {
         throw res.data;
@@ -66,6 +69,7 @@ const StaffAgreementState = (props) => {
 
     try {
       setLoading();
+      gl.embeddedPermission('0302')
       const res = await Axios.post('/api/StaffAgreement/add', staffAgreement)
       if (!res.data.isSuccessed) {
         throw res.data;

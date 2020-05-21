@@ -14,49 +14,51 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand navbar-dark   sticky-top">
       <div className="container">
+        <ul className={`navbar-nav nav mr-auto  `}>
         <Link className="navbar-brand" to='/'>HRMS</Link>
+        <li className="nav-item active">
+            <Link className="nav-link" to="/dashboard">DashBoard</Link>
+          </li>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
 
 
-        <ul className={`navbar-nav nav mr-auto  `}>
-          <li className="dropdown nav-item" >
+          <li className="active dropdown nav-item" >
             <a
-              className="btn btn-primary nav-link dropdown-toggle"
-              role="button" id="dropdownMenuButton"
-              data-toggle="dropdown" aria-haspopup="true" href='#' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+              className=" nav-link dropdown-toggle"
+              role="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" href='#' data-toggle="dropdown" 
             >
               Employee
                 </a>
             <div className='dropdown-menu' aria-labelledby="dropdownMenuButton">
-              <Link className="dropdown-list" to="/Staff"> All Employee </Link>
-              <Link className="dropdown-list" to="/StaffRelative"> Employee Relative </Link>
-              <Link className="dropdown-list" to="/StaffExperience"> Employment Experience </Link>
-              <a className="dropdown-list" href="#nogo"> Item 3 </a>
+              <Link className="dropdown-item" to="/Staff"> All Employee </Link>
+              <Link className="dropdown-item" to="/StaffRelative"> Employee Relative </Link>
+              <Link className="dropdown-item" to="/StaffExperience"> Employment Experience </Link>
+              <a className="dropdown-item" href="#nogo"> Item 3 </a>
             </div>
           </li>
           <li className="nav-item active">
             <Link className="nav-link" to="/UserAccount">UserAccount</Link>
           </li>
-          <li className="nav-item active">
+          {/* <li className="nav-item active">
             <Link className="nav-link" to="/Staffs">Attendant </Link>
-          </li>
+          </li> */}
           <li className="nav-item active">
             <Link className="nav-link" to="/StaffAgreement">Agreement</Link>
           </li>
-          <li className="nav-item active">
+          {/* <li className="nav-item active">
             <Link className="nav-link" to="/Permison">Permisson</Link>
-          </li>
+          </li> */}
           <li className="nav-item active">
-            <Link className="nav-link" to="/Staffs">Salary</Link>
+            <Link className="nav-link" to="/Salary">Salary</Link>
           </li>
           <li className="nav-item active">
             <Link className="nav-link" to="/department">Department </Link>
           </li>
-          <li className="nav-item active">
-            <Link className="nav-link" to="/dashboard">DashBoard</Link>
-          </li>
+          
 
         </ul>
         {

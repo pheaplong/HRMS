@@ -87,7 +87,7 @@ const StaffRelatives = ({ staffID }) => {
    const crossIcon=(<i class="fas fa-times icon"></i>)
    const plusIcon=(<i class="fas fa-plus icon"></i>)
    return (
-      <div >
+      <div className='main-component'>
          {
             loading && <Spinner />
          }
@@ -99,18 +99,11 @@ const StaffRelatives = ({ staffID }) => {
                      : (
                         <div className='pageSector' style={{ overflow: 'hidden' }}>
                            <div className='left-side'>
-                           
-                                 
-                              <ul>
-                                 <li><PopUpButton text='Add' className={'btn  btn-sm btn-primary'} component={staffRelativeModifiedModal}
+                                 <PopUpButton text='Add' className={'btn  btn-sm btn-primary'} component={staffRelativeModifiedModal}
                                     onClosingModal={clearCurrent}
-                                 /></li>
-                                 <li>
+                                 />
                                     <button className="btn  btn-sm btn-danger"
                                        onClick={btnDelete_onClick}>Delete</button>
-                                 </li>
-               
-                              </ul>
                            </div>
                            <div className="right-side">
                

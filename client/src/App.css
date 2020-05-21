@@ -66,6 +66,10 @@ html,body{
 }
 .alert p{
     margin: 0;
+    color: #FFF;
+}
+.alert-warning{
+    background-color: #cc2838;
 }
 .alert-success{
     background-color: #59A96A;
@@ -121,7 +125,7 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
   display: flex;
 }
 
@@ -149,13 +153,13 @@ tr{
   height: 100%;
   width: 100%;
 }
-.show,.dropdown-menu {
+/* .show,.Positiondropdown-menu {
     display: block;
     position: absolute;
     background-color: #0292B7;
     color: #FFF ;
 
-  }
+  } */
 .wrapper{
     display: grid;
     grid-template-columns: 2fr 10fr; 

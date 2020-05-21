@@ -4,6 +4,7 @@ import alertContext from '../alert/alertContext'
 import StaffRelativeContext from './StaffRelativeContext';
 import StaffRelativeReducer from './StaffRelativeReducer';
 import React from 'react'
+import GlobalLibrary from '../../helper/GlobalLibrary'
 import {
   LOAD_STAFF_RELATIVE,
   LOAD_STAFF_RELATIVE_BY_STAFF_ID,
@@ -29,6 +30,7 @@ const StaffRelativeState = (props) => {
     staffRelativesByStfID: [],
     current: null
   };
+  const gl=new GlobalLibrary()
   const [state, dispatch] = useReducer(StaffRelativeReducer, initialState);
   const { setAlert } = useContext(alertContext)
   //LOAD_STAFF_RELATIVE
@@ -37,6 +39,7 @@ const StaffRelativeState = (props) => {
   const loadStaffRelative = async (id) => {
     try {
       setLoading();
+      gl.embeddedPermission('0401')
       const res = await Axios.get('/api/staffrelative/')
       if (!res.data.isSuccessed) {
         throw res.data;
@@ -53,6 +56,7 @@ const StaffRelativeState = (props) => {
   }
   const loadStaffRelativeByStaffID = async (ID) => {
     try {
+      gl.embeddedPermission('0401')
       setLoading();
       const res = await Axios.get('/api/staffrelative/staff/' + ID)
       if (!res.data.isSuccessed) 
@@ -64,7 +68,6 @@ const StaffRelativeState = (props) => {
       return;
     }
     clearLoading();
-
   }
   const filter = stfRel => {
     console.log('stf rel state ');
@@ -86,7 +89,7 @@ const StaffRelativeState = (props) => {
   //ADD_staffRelative
   const addStaffRelative = async (staffRelative, type) => {
     try {
-      console.log(`from add relative by type ${type} \n` + json(staffRelative))
+      gl.embeddedPermission('0402')
       setLoading();
       const res = await Axios.post('/api/staffRelative/add', staffRelative)
       if (!res.data.isSuccessed) {
@@ -106,7 +109,7 @@ const StaffRelativeState = (props) => {
   const updateStaffRelative = async (staffRelative, type) => {
     try {
       setLoading();
-      console.log(`from update relative by type ${type} \n` + json(staffRelative))
+      gl.embeddedPermission('0403')
       const res = await Axios.put('/api/staffRelative/update', staffRelative)
       if (!res.data.isSuccessed) {
 throw res.data;
@@ -124,6 +127,7 @@ throw res.data;
 
     try {
       setLoading();
+      gl.embeddedPermission('0404')
       const res = await Axios.delete('/api/staffRelative/delete', {
         data: staffRelative
       })
