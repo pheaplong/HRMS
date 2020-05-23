@@ -34,7 +34,7 @@ const StaffState = (props) => {
       STF_DOB: '',
       STF_POB: '',
       STATUS_ID: '',
-      salary:[2,2],
+      salary: [2, 2],
       image: null
     },
     staff: {},
@@ -88,41 +88,44 @@ const StaffState = (props) => {
     clearLoading();
   }
   //ADD_staff
-  const addStaff = async staff => {
+  const addStaff = async (staff, image) => {
     try {
-
       globalLibrary.embeddedPermission('0202')
       setLoading();
-      console.log(staff.image);
-      
-      const res1 = await Axios.post('/upload', staff)
-      return
       const res = await Axios.post('/api/staff/add', staff)
-      if (!res.data.isSuccessed) {
+      clearLoading()
+      if (!res.data.isSuccessed)
         throw res.data
-      }
       staff.STF_ID = res.data.LAST_INSERT_ID;
       dispatch({ type: ADD_STAFF, payload: staff });
       setAlert('Staff', 'Add : ' + 'Transaction Successfully', true)
-      clearLoading()
+      image.append('fileName', res.data.LAST_INSERT_ID)
+      image.append('path', 'STAFF')
+      const result = globalLibrary.uploadFile(image)
+      if (!result)
+        setAlert('Staff', 'Add : ' + 'Update Successfully', true)
     } catch (error) {
       setAlert('Staff', 'Add : ' + error.message)
       return;
     }
   }
   //UPDATE
-  const updateStaff = async staff => {
+  const updateStaff = async (staff, image) => {
     try {
       globalLibrary.embeddedPermission('0203')
       setLoading();
       console.log('from state   ' + staff);
       const res = await Axios.put('/api/staff/update', staff)
       if (!res.data.isSuccessed) {
-        setAlert('Staff', 'Update : ' + res.data)
-        clearLoading(); return;
+        throw res.data
       }
       dispatch({ type: UPDATE_STAFF, payload: staff });
       setAlert('Staff', 'Update : ' + 'Update Successfully', true)
+      image.append('fileName', staff.STF_ID)
+      image.append('path', 'STAFF')
+      const result = globalLibrary.uploadFile(image)
+      if (!result)
+        setAlert('Staff', 'Update : ' + 'Update Successfully', true)
     } catch (error) {
       setAlert('Staff', 'Update : ' + error.message)
       clearLoading()
@@ -171,7 +174,7 @@ const StaffState = (props) => {
       if (!res.data.isSuccessed) {
         throw res.data;
       }
-      dispatch({ type: LOAD_SALARY, payload: res.data.result});
+      dispatch({ type: LOAD_SALARY, payload: res.data.result });
       setAlert('Staff', 'Salary : ' + 'Transaction Successfully', true)
     } catch (error) {
       setAlert('Staff', 'Salary : ' + error.message)
@@ -198,8 +201,8 @@ const StaffState = (props) => {
       staffs: state.staffs,
       staff: state.staff,
       loading: state.loading,
-      salary:state.salary,
-      loadStaff,loadSalary,
+      salary: state.salary,
+      loadStaff, loadSalary,
       loadStaffByID,
       addStaff,
       updateStaff,

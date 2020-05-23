@@ -68,6 +68,7 @@ UserAccountRoute.post('/register', async (req, res) => {
 
 
 UserAccountRoute.post('/login', (req, res) => {
+  console.log('hi');
   const USER_ID = req.body.USER_ID;
   let PASSWORD = req.body.PASSWORD
   const temp = {

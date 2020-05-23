@@ -48,6 +48,8 @@ import AlertState from './context/alert/AlertState'
 import Alert from './component/layout/Alert'
 import Dashboard from './component/Dashboard'
 import GlobalLibrary from './helper/GlobalLibrary';
+import Staff from './component/Staff/Staff';
+import { ADD_STAFF } from './context/type';
 //import StatusTypeState from './context/statusType/StatusTypeState'
 function App() {
   useEffect(() => {
@@ -85,7 +87,7 @@ function App() {
                               <Route exact path="/UserAccount/:type" component={Register} />
                               <PrivateRoute exact path="/Dashboard" component={Dashboard} />
                               {/* STAFF */}
-                              <Route exact path="/Staff" component={Staffs} />
+                              <PrivateRoute exact path="/Staff" component={Staffs} />
                               <Route exact path="/salary" component={Salary} />
                               <PrivateRoute exact path="/Staff/:id" component={StaffInfo} />
                               <PrivateRoute exact path="/StaffRelative" component={StaffRelatives} />

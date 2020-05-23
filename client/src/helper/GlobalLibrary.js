@@ -32,6 +32,20 @@ class GlobalLibrary {
       return null
     }
   }
+  async uploadFile(file) {
+    if (!file.has('file'))
+      return true
+    try {
+      const res = await Axios.post('/upload', file, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      return res.data.isSuccessed ? true : false
+    } catch (error) {
+      return false;
+    }
+  }
   LoadScriptByText(text) {
     const script = document.createElement('script');
     script.innerHTML = text

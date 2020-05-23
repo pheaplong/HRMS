@@ -101,25 +101,20 @@ const UserAccountState = props => {
         'Content-Type': 'application/json'
       }
     };
-
     try {
       setLoading()
       const res = await axios.post('/api/useraccount/login', UserAccount, config);
+      clearLoading()
       if (!res.data.isSuccessed)
         throw new Error(res.data.message);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data.result[0]
       });
-      console.log(res.data.result[0].token);
-
       setAlert('UserAccount', 'Log In : ' + 'Transaction Successfully', true)
     } catch (err) {
-      console.log(err);
-
       setAlert('UserAccount', 'Log In : ' + err.message)
     }
-    clearLoading()
   };
 
   // Logout

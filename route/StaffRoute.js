@@ -24,8 +24,6 @@ StaffRoute.get('/:id', (req, res) => {
 })
 //CREATE
 StaffRoute.post('/add', (req, res) => {
-
-
   dp.insertData(req.body).then((data) => {
     res.send(JSON.stringify(data, null, 2))
 
@@ -49,9 +47,6 @@ StaffRoute.put('/update', (req, res) => {
     STATUS_ID,
     STF_ID
   }
-  // tmp.STF_DOB=new Date(STF_DOB)
-  console.log('temp ' + JSON.stringify(tmp, null, 2));
-
   dp.updateData(tmp).then((data) => {
     res.send(JSON.stringify(data, null, 2))
   })

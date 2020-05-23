@@ -1,6 +1,6 @@
 const Domain = require('./Domain/PositionTypeDomain');
 const express = require('express');
-const formidable=require('formidable')
+const fileupload = require('express-fileupload');
 const StaffRoute = require('./route/StaffRoute')
 const DepartmentRoute = require('./route/DepartmentRoute')
 const LeaveHistoryRoute = require('./route/LeaveHistoryRoute')
@@ -22,13 +22,13 @@ const checkPermission = require('./middleware/SECURITY').checkPermission
 const cors = require('cors');
 const App = express();
 App.use(bodyParser.json());
-// App.use(formidable)
+App.use(fileupload())
 App.use(cors());
 
 App.use('/api/UserAccount', UserAccountRoute);
 // App.use('/api/staff', StaffRoute);
 // App.use('/api/staff', [authenthicateUser, checkPermission], StaffRoute);
-App.use('/api/staff', [authenthicateUser,checkPermission], StaffRoute);
+App.use('/api/staff', [authenthicateUser, checkPermission], StaffRoute);
 App.use('/api/Department', [authenthicateUser, checkPermission], DepartmentRoute);
 App.use('/api/LeaveHistory', [authenthicateUser, checkPermission], LeaveHistoryRoute);
 App.use('/api/LeaveType', [authenthicateUser, checkPermission], LeaveTypeRoute);
@@ -39,11 +39,19 @@ App.use('/api/StaffRelative', [authenthicateUser, checkPermission], StaffRelativ
 App.use('/api/StaffExperience', [authenthicateUser, checkPermission], StaffExperienceRoute);
 App.use('/api/StatusType', [authenthicateUser], StatusTypeRoute);
 App.post('/upload', (req, res) => {
-   console.log(req.body);
-  res.json({msg:''})
+  if (req.files == null)
+    return res.json({ message: 'No Upload File' })
+  const file = req.files.file
+  file.mv(`${__dirname}/client/public/images/staff/${req.body.fileName}.png`, err => {
+    if (err)
+      res.json({ message: err.message })
+    else
+      res.json({ isSuccessed: true })
+  })
+
 });
 App.get('/', (req, res) => {
-  res.json({msg:''})
+  res.json({ msg: '' })
 });
 
 App.listen(5000, () => {

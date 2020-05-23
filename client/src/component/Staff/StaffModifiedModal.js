@@ -56,56 +56,24 @@ const StaffModifiedModal = ({ type, staffID }) => {
   } = Staff
 
   const fileSeclectedhandler = e => {
-     console.log(e.target.files[0]);
     setFile(e.target.files[0])
   }
   const onChange = e => {
-     console.log(e);
-     
+    console.log(e);
+
     setStaff({ ...Staff, [e.target.name]: e.target.value });
   }
 
-  const createStaff = () => {
-     if(file!==null){
-        const fd=new FormData();
-        fd.append('image',file,file.name)
-        setStaff({...setStaff,image:fd})
-        addStaff(fd)
-      }
-  }
 
-  const onSubmite = e => {
+  const onSubmit = e => {
     e.preventDefault();
-   //  type === 'add' ? createStaff() : updateStaff(Staff)
-   const fd=new FormData();
-   const myfile=$('input[name=file]')[0].files[0]
-   fd.append('image',myfile,myfile.name)
-               $.ajax({
-                  type: 'POST',
-                  async:false,
-                  dataType:'json',
-                  data:JSON.stringify(fd),
-                  contentType: 'application/json',
-                  url: 'http://localhost:5000/upload',
-                  success: function (res) {
-                     if(res.isSuccessed)
-                     console.log('success')
-                     else{
-                     console.log(res.message)
-                     }
-                   window.location.reload(false); 
-                  },
-                  error:function(e){
-                     alert(e)
-                  }
-               });
-
+    const fd = new FormData();
+    fd.append('file', file)
+    type === 'add' ? addStaff(Staff, fd) : updateStaff(Staff, fd)
   }
   return (
-    <form onSubmit={onSubmite} style={{ backgroundColor: 'white', height: '100%' }}>
-      {loading ? <Spinner /> : <Alert />}
-
-
+    <form onSubmit={onSubmit} style={{ backgroundColor: 'white', height: '100%' }}>
+      {loading && <Spinner />}
       {/* FIRST NAME */}
       <div className="form-group row">
         <label htmlFor="firstName" className="col-sm-2 col-form-label">First Name</label>
@@ -124,8 +92,8 @@ const StaffModifiedModal = ({ type, staffID }) => {
       </div>
       {/* IMAGE */}
       <div id='getFileLabel'>
-         <label htmlFor="file" id='fileLabel'><i class="fa fa-upload" aria-hidden="true"></i></label>
-         <input type="file" name="file" id="file" onChange={fileSeclectedhandler}className='d-none'/>
+        <label htmlFor="file" id='fileLabel'><i class="fa fa-upload" aria-hidden="true"></i></label>
+        <input type="file" name="file" id="file" onChange={fileSeclectedhandler} className='d-none' />
       </div>
       {/* GENDER */}
       <div className="form-group row">
