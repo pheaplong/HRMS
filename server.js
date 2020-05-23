@@ -1,5 +1,6 @@
 const Domain = require('./Domain/PositionTypeDomain');
 const express = require('express');
+const formidable=require('formidable')
 const StaffRoute = require('./route/StaffRoute')
 const DepartmentRoute = require('./route/DepartmentRoute')
 const LeaveHistoryRoute = require('./route/LeaveHistoryRoute')
@@ -21,6 +22,7 @@ const checkPermission = require('./middleware/SECURITY').checkPermission
 const cors = require('cors');
 const App = express();
 App.use(bodyParser.json());
+// App.use(formidable)
 App.use(cors());
 
 App.use('/api/UserAccount', UserAccountRoute);
@@ -36,8 +38,12 @@ App.use('/api/StaffAgreement', [authenthicateUser, checkPermission], StaffAgreem
 App.use('/api/StaffRelative', [authenthicateUser, checkPermission], StaffRelativeRoute);
 App.use('/api/StaffExperience', [authenthicateUser, checkPermission], StaffExperienceRoute);
 App.use('/api/StatusType', [authenthicateUser], StatusTypeRoute);
+App.post('/upload', (req, res) => {
+   console.log(req.body);
+  res.json({msg:''})
+});
 App.get('/', (req, res) => {
-  res.send('go back')
+  res.json({msg:''})
 });
 
 App.listen(5000, () => {

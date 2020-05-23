@@ -148,10 +148,20 @@ tr{
   display: none;
 }
 #getFileLabel {
-  display: inline-block;
-  background: red;
-  height: 100%;
-  width: 100%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: red;
+    height: 95px;
+    width: 95px;
+}
+#fileLabel{
+    height: 100%;
+    width: 100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }
 /* .show,.Positiondropdown-menu {
     display: block;
