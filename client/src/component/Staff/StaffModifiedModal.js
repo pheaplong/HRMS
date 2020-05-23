@@ -8,6 +8,7 @@ import StatusTypeState from './../../context/statusType/StatusTypeState'
 import StaffContext from './../../context/staff/StaffContext'
 import { STATUS_TYPE, GENDER_TYPE, MARITAL_TYPE } from '../../helper/Constant'
 import Axios from 'axios'
+import $ from 'jquery'
 const StaffModifiedModal = ({ type, staffID }) => {
   const { loadStatus, allStatus } = useContext(StatusTypeContext)
   const cbStatus = allStatus.filter(c => c.CATEGORY == STATUS_TYPE)
@@ -55,22 +56,49 @@ const StaffModifiedModal = ({ type, staffID }) => {
   } = Staff
 
   const fileSeclectedhandler = e => {
+     console.log(e.target.files[0]);
     setFile(e.target.files[0])
   }
-  const uploadFile = () => {
-
-  }
   const onChange = e => {
+     console.log(e);
+     
     setStaff({ ...Staff, [e.target.name]: e.target.value });
   }
 
   const createStaff = () => {
-    addStaff(Staff)
+     if(file!==null){
+        const fd=new FormData();
+        fd.append('image',file,file.name)
+        setStaff({...setStaff,image:fd})
+        addStaff(fd)
+      }
   }
 
   const onSubmite = e => {
     e.preventDefault();
-    type === 'add' ? createStaff() : updateStaff(Staff)
+   //  type === 'add' ? createStaff() : updateStaff(Staff)
+   const fd=new FormData();
+   const myfile=$('input[name=file]')[0].files[0]
+   fd.append('image',myfile,myfile.name)
+               $.ajax({
+                  type: 'POST',
+                  async:false,
+                  dataType:'json',
+                  data:JSON.stringify(fd),
+                  contentType: 'application/json',
+                  url: 'http://localhost:5000/upload',
+                  success: function (res) {
+                     if(res.isSuccessed)
+                     console.log('success')
+                     else{
+                     console.log(res.message)
+                     }
+                   window.location.reload(false); 
+                  },
+                  error:function(e){
+                     alert(e)
+                  }
+               });
 
   }
   return (
@@ -78,19 +106,10 @@ const StaffModifiedModal = ({ type, staffID }) => {
       {loading ? <Spinner /> : <Alert />}
 
 
-      <div className='float-right' style={{ width: '150px', height: '150px', backgroundColor: 'red' }}>
-        {/* <label id="getFileLabel" for="getFile" className='m-auto text-align-center'>
-             <i className="m-auto fas fa-upload" style={{fontSize:'2em'}}></i>
-         </label> */}
-
-        <input type="file" onChange={fileSeclectedhandler} id="getFile" />
-      </div>
-
-      <input type="file" id="file_upload" className="d-none" />
       {/* FIRST NAME */}
       <div className="form-group row">
         <label htmlFor="firstName" className="col-sm-2 col-form-label">First Name</label>
-        <div className="col-sm-10">
+        <div className="col-sm-9">
           <input autoFocus type="text" onChange={onChange} className="form-control" autoComplete='off'
             name="STF_FN" value={STF_FN} placeholder="First Name" />
         </div>
@@ -98,10 +117,15 @@ const StaffModifiedModal = ({ type, staffID }) => {
       {/* LAST NAME */}
       <div className="form-group row">
         <label htmlFor="" className="col-sm-2 col-form-label">Last Name</label>
-        <div className="col-sm-10">
+        <div className="col-sm-9">
           <input type="text" onChange={onChange} className="form-control" autoComplete='off'
             name="STF_LN" value={STF_LN} placeholder="Last Name" />
         </div>
+      </div>
+      {/* IMAGE */}
+      <div id='getFileLabel'>
+         <label htmlFor="file" id='fileLabel'><i class="fa fa-upload" aria-hidden="true"></i></label>
+         <input type="file" name="file" id="file" onChange={fileSeclectedhandler}className='d-none'/>
       </div>
       {/* GENDER */}
       <div className="form-group row">

@@ -93,6 +93,10 @@ const StaffState = (props) => {
 
       globalLibrary.embeddedPermission('0202')
       setLoading();
+      console.log(staff.image);
+      
+      const res1 = await Axios.post('/upload', staff)
+      return
       const res = await Axios.post('/api/staff/add', staff)
       if (!res.data.isSuccessed) {
         throw res.data
