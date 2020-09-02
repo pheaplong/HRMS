@@ -121,13 +121,12 @@ html,body{
     /* grid-template-columns: repeat(auto-fill,1fr); */
     /* grid-template-rows: 1fr; */
 } 
-ul {
+/* ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  /* overflow: hidden; */
   display: flex;
-}
+} */
 
 .hidden{
     display:none

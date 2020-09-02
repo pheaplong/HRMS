@@ -26,7 +26,6 @@ const StaffRelativeReducer=(state,action)=>{
          break;
       case LOAD_STAFF_RELATIVE_BY_STAFF_ID:
          console.log('fliter by stf_id');
-         
          return {
             ...state,
             staffRelativesByStfID:action.payload,
@@ -41,7 +40,7 @@ const StaffRelativeReducer=(state,action)=>{
          tmp = action.payload.searchValue !=='' ?
             tmp.filter(s=> s.REL_FN.concat(s.REL_LN).includes(action.payload.searchValue) 
                            || s.STAFF.includes(action.payload.searchValue))
-                        : state.staffRelatives
+            : state.staffRelatives
            
             
          tmp = action.payload.RELATION_ID !=0 ?

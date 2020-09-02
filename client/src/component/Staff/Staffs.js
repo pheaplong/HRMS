@@ -1,18 +1,18 @@
 /* eslint-disable*/
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect,useState } from 'react'
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import Staff from './Staff'
 import StaffContext from '../../context/staff/StaffContext';
 import Table from '../layout/Table'
 import PopUpButton from '../layout/PopUpButton'
 import StaffModifiedModal from './StaffModifiedModal'
 import Spinner from '../layout/Spinner'
-import Alert from '../layout/Alert';
+import Modal from '../layout/Modal'
+import $ from 'jquery'
 
 
 const Staffs = () => {
-   const { staffs, loadStaff, deleteStaff, current, loading } = useContext(StaffContext);
+   const { staffs, loadStaff, deleteStaff, current,setCurrent, loading } = useContext(StaffContext);
    useEffect(() => {
       loadStaff()
    }, [])
@@ -22,82 +22,56 @@ const Staffs = () => {
       'FirstName KH', 'LastName KH',
       'Position', 'Department'];
    let body = [];
-   const staffModifiedModal = <StaffModifiedModal type='add'/>
-
+   const [staffModifiedModal, setStaffModifiedModal] = useState(<StaffModifiedModal type='add'/>)
+   const rowdblClick=(staff)=>{
+      setCurrent(staff)
+      setStaffModifiedModal(<StaffModifiedModal type='edit'/>)
+      $('#btnStaffModi').click()
+   }
+   const rowClick=staff=>{
+      setTimeout(() => {
+      setCurrent(staff)
+      }, 200);
+   }
+   const btnClickEvent=()=>{
+      if (!current) {
+         window.alert('Please Select Employee');
+         return;
+      }
+      var isDelete = window.confirm('Do you really want to delete this Employee?');
+      if (isDelete) {
+         deleteStaff(current)
+      }
+   }
    return (
       <div >
          {
             loading && <Spinner/>
          }
+         <Modal modelId='staffModal' body={staffModifiedModal}/>
          <div className='pageSector'>
             <div className='left-side'>
-               <PopUpButton text='Add' className={'btn btn-primary'} component={staffModifiedModal} />
-            <button className="btn btn-danger"
-                     onClick={() => {
-                        if (!current) {
-                           window.alert('Please Select Employee');
-                           return;
-                        }
-                        var isDelete = window.confirm('Do you really want to delete this Employee?');
-                        if (isDelete) {
-                           deleteStaff(current)
-                        }
-                     }}
-                  >Delete</button>
+               <button class="btn btn-danger" id='btnStaffModi'  data-toggle="modal" data-target="#staffModal">Addnew</button>
+            <button className="btn btn-danger" onClick={() => { btnClickEvent() }} >Delete</button>
                   <Link className="btn btn-info"
                         onClick={(e) => {
                            if (!current) {
                               window.alert('Please Select Employee');
                               e.preventDefault()
                            }
-
                         }}
-                        to={`/Staff/${current &&current.STF_ID }`}>Information</Link>
-                  
-               {/* <ul>
-                  <li><PopUpButton text='Add' className={'btn btn-primary'} component={staffModifiedModal} /></li>
-                  <li><button className="btn btn-danger"
-                     onClick={() => {
-                        if (!current) {
-                           window.alert('Please Select Employee');
-                           return;
-                        }
-                        var isDelete = window.confirm('Do you really want to delete this Employee?');
-                        if (isDelete) {
-                           deleteStaff(current)
-                        }
-                     }}
-                  >Delete</button></li>
-                  <li>
-                     <Link className="btn btn-info"
-                        onClick={(e) => {
-                           if (!current) {
-                              window.alert('Please Select Employee');
-                              e.preventDefault()
-                           }
-
-                        }}
-                        to={`/Staff/${current &&current.STF_ID }`}>Information</Link>
-                  </li>
-               </ul> */}
+                  to={`/Staff/${current && current.STF_ID}`}>Information
+                  </Link>
             </div>
-            <div className='right-side'>
-               {/* <input type="text" name="" id="" />
-               <button className="btn btn-danger">Search</button><br />
-               <input type="text" name="" id="" />
-               <button className="btn btn-info">Clear</button> */}
-            </div>
+            <div className='right-side'></div>
          </div>
          {
             staffs.map(
                (staff, i) => {
-                  body.push(<Staff key={i} No={i + 1} staff={staff} />)
+                  body.push(<Staff key={i} No={i + 1} staff={staff} rowClick={()=>{rowClick(staff)}} rowdblClick={()=>{rowdblClick(staff)}} />)
                }
             )
          }
-         {/* {
-            loading ? :/>
-         } */}
          <Table key={1} columns={columns} body={body} />
       </div>
    )

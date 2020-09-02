@@ -41,16 +41,12 @@ StaffRelativeRoute.post('/add',(req,res)=>{
          REL_GENDER,
          STATUS_ID,
          RELATION_ID}
-    
-      
    dp.insertData(tmp).then((data)=>{
       res.json(data)
    })
 })
 //UPDATE
 StaffRelativeRoute.put('/update',(req,res)=>{
-   console.log(req.body);
-   
    const {STF_ID,
       REL_FN,
       REL_LN,

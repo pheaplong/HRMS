@@ -61,6 +61,7 @@ const StaffRelativeState = (props) => {
       const res = await Axios.get('/api/staffrelative/staff/' + ID)
       if (!res.data.isSuccessed) 
         throw res.data;
+      dispatch({ type: LOAD_STAFF_RELATIVE_BY_STAFF_ID, payload: res.data.result });
       setAlert('Staff Relative', 'Loading : ' + 'Transaction Succesfully', true)
 
     } catch (error) {

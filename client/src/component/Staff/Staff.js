@@ -27,13 +27,8 @@ const Staff = (props) => {
    }
 
    return (
-      <tr id={rowID} className={ (current && current.STF_ID==STF_ID)? 'selectedRow'  :''} onClick={setCurrentStaff}>
-         <PopUpButton
-         trigger={<td>{props.No}</td>}
-        // onDoubleClick={setCurrent(staff)}
-        onClosingModal={clearCurrentStaff}
-         component={staffModifiedModal}
-         />
+      <tr id={rowID} className={ (current && current.STF_ID==STF_ID)? 'selectedRow'  :''} onClick={props.rowClick} onDoubleClick={props.rowdblClick}>
+         <td>{props.No}</td>
          <td>{STF_ID}</td>
          <td>{STF_FN}</td>
          <td>{STF_LN}</td> 

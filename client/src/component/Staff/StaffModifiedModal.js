@@ -9,7 +9,7 @@ import StaffContext from './../../context/staff/StaffContext'
 import { STATUS_TYPE, GENDER_TYPE, MARITAL_TYPE } from '../../helper/Constant'
 import Axios from 'axios'
 import $ from 'jquery'
-const StaffModifiedModal = ({ type, staffID }) => {
+const StaffModifiedModal = ({ type }) => {
   const { loadStatus, allStatus } = useContext(StatusTypeContext)
   const cbStatus = allStatus.filter(c => c.CATEGORY == STATUS_TYPE)
   const cbGender = allStatus.filter(c => c.CATEGORY == GENDER_TYPE)
@@ -31,15 +31,10 @@ const StaffModifiedModal = ({ type, staffID }) => {
 
     }
   )
-  const assignState = () => {
-    if (current !== {}) {
-      setStaff(current)
-    }
-  }
-
   const [file, setFile] = useState(null)
   useEffect(() => {
     loadStatus(STATUS_TYPE)
+    console.log(current);
     type !== 'add' && setStaff(current)
   }, [current])
 

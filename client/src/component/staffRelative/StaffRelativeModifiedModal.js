@@ -18,7 +18,7 @@ import {
 const StaffRelativeModifiedModal = ({ type, staffID }) => {
    useScript({text:`
       $(document).ready(function(){
-         $("#cbStaff").select2()
+         // $("#cbStaff").select2()
       })`})
    const { loadStatus, allStatus } = useContext(StatusTypeContext)
    const { loading, addStaffRelative, current, updateStaffRelative, setCurrent, StaffRelatives } = useContext(StaffRelativeContext)
@@ -69,6 +69,7 @@ const StaffRelativeModifiedModal = ({ type, staffID }) => {
 
    const onChange = e => {
       setStaffRelative({ ...StaffRelative, [e.target.name]: e.target.value });
+      console.log(1);
    }
 
    const createStaffRelative = () => {
@@ -88,6 +89,7 @@ const StaffRelativeModifiedModal = ({ type, staffID }) => {
                                     : updateStaffRelative(StaffRelative,UPDATE_STAFF_RELATIVE)}
 
    }
+    
    return (
       <form onSubmit={onSubmite}>
          {loading ? <Spinner /> : <Alert />}
@@ -132,9 +134,9 @@ const StaffRelativeModifiedModal = ({ type, staffID }) => {
          <div className="form-group row">
             <label htmlFor="STF_ID" className="col-sm-2 col-form-label">Employee</label>
             <div className="col-sm-10">
-               <select id="cbStaff" className="form-control" value={STF_ID}>
+               <select id="cbStaff" className="form-control" value={STF_ID} onChange={onChange} name='STF_ID'>
                   {staffs.map((item, key) =>
-                     <option key={key} value={item.STF_ID}>{item.STF_ID+' - '+item.STF_FN + ' ' + item.STF_LN}</option>
+                     <option key={key} value={item.STF_ID}>{item.STF_ID + ' - ' + item.STF_FN + ' ' + item.STF_LN}</option>
                   )}
                </select>
             </div>

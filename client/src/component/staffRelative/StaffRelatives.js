@@ -8,13 +8,15 @@ import PopUpButton from '../layout/PopUpButton'
 import StaffRelativeModifiedModal from './StaffRelativeModifiedModal'
 import Spinner from '../layout/Spinner'
 import StatusContext from '.././../context/statusType/StatusTypeContext'
-import {RELATION_TYPE} from '../../helper/Constant'
+import { RELATION_TYPE } from '../../helper/Constant'
 import {
    DELETE_STAFF_RELATIVE,
    DELETE_STAFF_RELATIVE_BY_STAFF_ID
 } from '../../context/type'
+import Modal from '../layout/Modal'
 //#endregion
 const StaffRelatives = ({ staffID }) => {
+   //#region Initial
    const { staffRelatives,
       staffRelativesByStfID,
       filterStaffRelative,
@@ -26,13 +28,13 @@ const StaffRelatives = ({ staffID }) => {
       loadStaffRelativeByStaffID,
       loading } = useContext(StaffRelativeContext);
    const { allStatus, loadStatus } = useContext(StatusContext)
-   const  cbRelType=allStatus.filter(s=>s.CATEGORY==RELATION_TYPE)
+   const cbRelType = allStatus.filter(s => s.CATEGORY == RELATION_TYPE)
    const [searchValue, setSearchValue] = useState('')
    const [RELATION_ID, setRELATION_ID] = useState(0)
+   const [staffRelativeModifiedModal, setStaffRelativeModifiedModal] = useState(<StaffRelativeModifiedModal type='add' staffID={staffID} />)
    useEffect(() => {
       !staffID && loadStaffRelative()
       loadStatus()
-      console.log(`the staffID is ${staffID}`);
 
    }, [])
 
@@ -41,13 +43,12 @@ const StaffRelatives = ({ staffID }) => {
       'Gender', 'Relation',
       'Staff', 'Department'];
    let body = [];
-   const staffRelativeModifiedModal = <StaffRelativeModifiedModal type='add' staffID={staffID} />
    const onCbChange = e => {
       setRELATION_ID(e.target.value)
       const tmp = {
-         searchValue:searchValue,
-         RELATION_ID:e.target.value
-        
+         searchValue: searchValue,
+         RELATION_ID: e.target.value
+
       }
       console.log(tmp);
 
@@ -66,13 +67,23 @@ const StaffRelatives = ({ staffID }) => {
       setSearchValue('')
       // clearFilter()
    }
+   const rowClick=staffRelative=>{
+      setTimeout(() => {
+         setCurrent(staffRelative)
+      }, 200);
+   }
+   const rowdblClick=(staffRelative)=>{
+      setCurrent(staffRelative)
+      setStaffModifiedModal(<StaffRelativeModifiedModal type='add' staffID={staffID} />)
+      $('#btnStaffModi').click()
+   }
    const initialTable = (list, body, staffID) => {
-       list.map((staffRelative, i) => {
-         body.push(<StaffRelative staffID={staffID} key={i} No={i + 1} staffRelative={staffRelative} />);
+      list.map((staffRelative, i) => {
+         body.push(<StaffRelative staffID={staffID} key={i} No={i + 1} staffRelative={staffRelative } rowClick={()=>{rowClick(staff)}} rowdblClick={()=>{rowdblClick(staff)}}/>);
       });
 
    }
-   const btnDelete_onClick=() => {
+   const btnDelete_onClick = () => {
       if (!current) {
          window.alert('Please Select Person');
          return;
@@ -84,69 +95,43 @@ const StaffRelatives = ({ staffID }) => {
 
       }
    }
-   const crossIcon=(<i class="fas fa-times icon"></i>)
-   const plusIcon=(<i class="fas fa-plus icon"></i>)
+   const crossIcon = (<i class="fas fa-times icon"></i>)
+   const plusIcon = (<i class="fas fa-plus icon"></i>)
+   //#endregion
    return (
       <div className='main-component'>
          {
             loading && <Spinner />
          }
+         <Modal modelId='staffRelativeModal' body={staffRelativeModifiedModal} />
+         <div className='pageSector' style={{ overflow: 'hidden' }}>
+            <div className='left-side'>
+               <button class="btn btn-primary" id="btnStaffRelativeModi" data-toggle="modal" data-target="#staffRelativeModal">Add</button>
+               <button className="btn  btn-sm btn-danger"
+                  onClick={btnDelete_onClick}>Delete
+               </button>
+            </div>
+            <div className="right-side">
+            </div>
+            <input type="text" name="" id="" onChange={onChange}
+               style={{ width: '200px', height: '25px' }} value={searchValue} />
+            {/* <button className="btn btn-sm btn-success btn-sm">Search</button><br /> */}
+            <select name="" id="" onChange={onCbChange}
+               style={{ width: '200px', height: '25px' }} value={RELATION_ID}>
+               <option onChange={onCbChange} value={0}>---Select---</option>
+               {
+                  cbRelType.map(s => (<option onChange={onCbChange} value={s.ST_ID}>{s.ST_DESC}</option>))
+               }
+            </select>
+            <button onClick={btnclear_onClick} id="btnClear"
+               style={{ width: '200px', height: '25px' }} className="btn btn-sm btn-info btn-sm"> Clear</button>
+         </div>
          {
-            staffID ? (<div><PopUpButton text={plusIcon} className={'btn  btn-sm btn-primary floating-btn'} component={staffRelativeModifiedModal}
-                         onClosingModal={clearCurrent}/>
-                        <button className="btn  btn-sm btn-danger floating-btn btn-2" id='btnDelete'
-                         onClick={btnDelete_onClick}>{crossIcon}</button></div>)
-                     : (
-                        <div className='pageSector' style={{ overflow: 'hidden' }}>
-                           <div className='left-side'>
-                                 <PopUpButton text='Add' className={'btn  btn-sm btn-primary'} component={staffRelativeModifiedModal}
-                                    onClosingModal={clearCurrent}
-                                 />
-                                    <button className="btn  btn-sm btn-danger"
-                                       onClick={btnDelete_onClick}>Delete</button>
-                           </div>
-                           <div className="right-side">
-               
-                              <input type="text" name="" id="" onChange={onChange}
-                                 style={{ width: '200px', height: '25px' }} value={searchValue} />
-                              {/* <button className="btn btn-sm btn-success btn-sm">Search</button><br /> */}
-                              <select name="" id="" onChange={onCbChange}
-                                 style={{ width: '200px', height: '25px' }} value={RELATION_ID}>
-                                 <option onChange={onCbChange} value={0}>---Select---</option>
-                                 {
-                                    cbRelType.map(s => (<option onChange={onCbChange} value={s.ST_ID}>{s.ST_DESC}</option>))
-                                 }
-                              </select>
-                              <button onClick={btnclear_onClick} id="btnClear"
-                                 style={{ width: '200px', height: '25px' }} className="btn btn-sm btn-info btn-sm"> Clear</button>
-                           </div>
-                        </div>
-               )
-         }
-
-
-
-         {
-
-            //IF HAVE staffID USE staffRelativesByStfID else filterStaffRelative
-            // staffID ?
-            // initialTable(staffRelativesByStfID, body, staffID)
-            // :
-            // staffRelatives.map(
-            //    (staffRelative, i) => {
-            //       body.push(<StaffRelative key={i} No={i + 1} staffRelative={staffRelative} />)
-            //    }
-            // )
             staffID ? initialTable(staffRelativesByStfID, body, staffID)
                : initialTable(filterStaffRelative, body, staffID)
-
-
-
          }
 
          <Table columns={columns} body={body} />
-
-
       </div>
    )
 }
